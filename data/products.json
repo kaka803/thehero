@@ -1,0 +1,42 @@
+[
+  {
+    "id": "lemon",
+    "name": "LEMON",
+    "description": "Fresh and sparkling iced tea with sun-ripened lemons",
+    "details": "A refreshing classic with the perfect balance of sweet and sour. Our lemon variety embodies summer in every bottle.",
+    "longDescription": "Our lemon iced tea combines the tangy freshness of Mediterranean lemons with the timeless elegance of oriental tea culture - a touch of Arabia in every sip.",
+    "image": "/hummus-hero.png",
+    "color": "#d3b673",
+    "price": 2.5,
+    "stock": 120,
+    "nutrition": {
+      "calories": "29",
+      "fat": "0 g",
+      "carbs": "7.1 g",
+      "sugar": "7.1 g",
+      "protein": "0 g",
+      "salt": "0.023 g",
+      "extract": "1.2 g/l"
+    }
+  },
+  {
+    "id": "peach",
+    "name": "PEACH",
+    "description": "Velvety iced tea with juicy peaches",
+    "details": "Like a summer's day in a glass - our peach iced tea combines the natural sweetness of ripe peaches with refreshing coolness.",
+    "longDescription": "Our peach iced tea captures the essence of sun-drenched orchards, delivering a velvety smooth experience that balances delicate sweetness with a crisp, refreshing finish.",
+    "image": "/tahini-hero.png",
+    "color": "#ff7b31",
+    "price": 2.5,
+    "stock": 85,
+    "nutrition": {
+      "calories": "32",
+      "fat": "0 g",
+      "carbs": "8.2 g",
+      "sugar": "8.2 g",
+      "protein": "0 g",
+      "salt": "0.021 g",
+      "extract": "1.1 g/l"
+    }
+  }
+]
