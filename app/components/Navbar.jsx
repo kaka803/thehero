@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ShoppingCart, User, Search, Globe } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { useProducts } from "@/context/ProductContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -26,20 +27,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent scrolling when search is open and focus input
+  // Prevent scrolling when search or mobile menu is open
   useEffect(() => {
-    if (isSearchOpen) {
+    if (isSearchOpen || mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        searchInputRef.current?.focus();
-      }, 100);
+      if (isSearchOpen) {
+        setTimeout(() => {
+          searchInputRef.current?.focus();
+        }, 100);
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isSearchOpen]);
+  }, [isSearchOpen, mobileMenuOpen]);
+
 
   const navLinks = [
     { name: t("nav.home"), href: "/" },
@@ -53,7 +57,7 @@ export default function Navbar() {
     <>
       {/* Search Overlay - Moved outside <nav> to prevent being trapped by nav height/transforms */}
       <div 
-        className={`fixed inset-0 bg-black/95 backdrop-blur-3xl z-60 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed inset-0 bg-black/95 backdrop-blur-3xl z-[110] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isSearchOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         }`}
       >
@@ -157,15 +161,17 @@ export default function Navbar() {
       </div>
 
       <nav 
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
-          scrolled 
-            ? "bg-white/10 backdrop-blur-2xl py-4 shadow-[0_8px_32px_rgba(255,255,255,0.05)]" 
+        className={`fixed top-0 left-0 w-full z-100 transition-all duration-500 ease-in-out ${
+          scrolled || mobileMenuOpen
+            ? "bg-white/10 backdrop-blur-2xl py-3 shadow-[0_8px_32px_rgba(255,255,255,0.05)]" 
             : "bg-transparent py-5 md:py-8"
         }`}
       >
+
+
         <div className="max-w-[90rem] mx-auto px-6 md:px-12 flex items-center justify-between h-18">
           
-          <div className="flex items-center gap-3 cursor-pointer z-50 group">
+          <Link href="/" className="flex items-center gap-3 cursor-pointer z-50 group">
             <Image 
               src="/logo.png" 
               alt="FoodBrand Logo" 
@@ -174,7 +180,7 @@ export default function Navbar() {
               className="h-25 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:scale-105"
               priority
             />
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className={`hidden md:flex items-center bg-white/5 backdrop-blur-md px-2 py-1.5 rounded-full border border-white/10 shadow-lg transition-all duration-500 ${scrolled ? 'gap-4 px-6' : 'gap-8 px-10'}`}>
@@ -193,20 +199,18 @@ export default function Navbar() {
           {/* Action Icons */}
           <div className="hidden md:flex items-center gap-4">
             {/* Language Switcher */}
-            <div className="flex bg-white/5 border border-white/10 rounded-full p-1 mr-2">
-               <button 
-                onClick={() => switchLanguage('en')}
-                className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest transition-all ${lang === 'en' ? 'bg-[#d3b673] text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
-               >
-                EN
-               </button>
-               <button 
-                onClick={() => switchLanguage('de')}
-                className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest transition-all ${lang === 'de' ? 'bg-[#d3b673] text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
-               >
-                DE
-               </button>
-            </div>
+            <button 
+              onClick={() => switchLanguage(lang === 'en' ? 'de' : 'en')}
+              className="w-11 h-11 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 border border-white/10 text-white/80 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 group relative"
+              title={lang === 'en' ? 'Switch to German' : 'Auf Englisch umstellen'}
+            >
+              <Globe size={18} strokeWidth={2.5} />
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none uppercase font-bold tracking-widest whitespace-nowrap">
+                {lang === 'en' ? 'DE' : 'EN'}
+              </span>
+            </button>
+
+
 
             <button 
               onClick={() => setIsSearchOpen(true)}
@@ -247,10 +251,13 @@ export default function Navbar() {
 
         {/* Mobile Menu Overlay */}
         <div 
-          className={`fixed top-0 left-0 w-full h-screen bg-white/5 backdrop-blur-3xl flex flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-40 origin-top overflow-hidden border-b border-white/10 ${
+          className={`fixed top-0 left-0 w-full h-screen bg-[#0a0a0a]/90 backdrop-blur-[100px] flex flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-40 origin-top overflow-hidden border-b border-white/10 ${
             mobileMenuOpen ? "opacity-100 visible scale-y-100" : "opacity-0 invisible scale-y-0"
           }`}
         >
+
+
+
           <div className="flex flex-col items-center gap-6 text-center w-full px-6 max-w-sm mt-10">
             {navLinks.map((link, i) => (
               <a 
@@ -274,17 +281,14 @@ export default function Navbar() {
               }}
             >
                 <button 
-                 onClick={() => switchLanguage('en')}
-                 className={`px-6 py-2 rounded-full text-xs font-black tracking-widest transition-all ${lang === 'en' ? 'bg-[#d3b673] text-black' : 'text-white/40'}`}
+                 onClick={() => switchLanguage(lang === 'en' ? 'de' : 'en')}
+                 className="flex items-center gap-3 px-8 py-3 rounded-full bg-white/10 border border-white/20 text-white font-bold transition-all active:scale-95"
                 >
-                 EN
+                 <Globe size={18} />
+                 <span className="text-xs tracking-widest uppercase">{lang === 'en' ? 'Switch to DE' : 'Auf EN umstellen'}</span>
                 </button>
-                <button 
-                 onClick={() => switchLanguage('de')}
-                 className={`px-6 py-2 rounded-full text-xs font-black tracking-widest transition-all ${lang === 'de' ? 'bg-[#d3b673] text-black' : 'text-white/40'}`}
-                >
-                 DE
-                </button>
+
+
             </div>
 
             <div 

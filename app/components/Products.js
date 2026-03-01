@@ -13,7 +13,7 @@ const Products = () => {
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-6 mb-24 animate-in fade-in slide-in-from-bottom-8 duration-1000">
         <div className="space-y-3">
           <h2 className="text-[#d3b673] uppercase tracking-[0.4em] text-xs font-black">{t("products.collection")}</h2>
-          <h3 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
+          <h3 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-white break-words hyphens-auto">
             {t("products.discover")} <span className="text-transparent bg-clip-text bg-linear-to-r from-white via-[#d3b673] to-white/40">{t("products.premium")}</span> {t("products.flavors")}
           </h3>
         </div>

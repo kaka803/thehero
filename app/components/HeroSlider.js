@@ -250,16 +250,18 @@ const HeroSlider = () => {
 
       {/* Action Button Centered Near Bottom (Where Pagination Used to Be) */}
       <div className="absolute bottom-35 md:bottom-10 left-1/2 transform -translate-x-1/2 z-40">
-        <button
-          className="px-6 py-2.5 md:px-8 md:py-3 rounded-full uppercase tracking-[0.15em] font-semibold text-sm md:text-base transition-all duration-300 hover:scale-[1.05] active:scale-95 whitespace-nowrap"
-          style={{
-            backgroundColor: slide.bgColor,
-            color: slide.textColor,
-            boxShadow: `0 8px 20px -8px ${slide.bgColor}`,
-          }}
-        >
-          {t("hero.discover")}
-        </button>
+        <a href="/products">
+          <button
+            className="px-6 py-2.5 md:px-8 md:py-3 rounded-full uppercase tracking-[0.15em] font-semibold text-sm md:text-base transition-all duration-300 hover:scale-[1.05] active:scale-95 whitespace-nowrap"
+            style={{
+              backgroundColor: slide.bgColor,
+              color: slide.textColor,
+              boxShadow: `0 8px 20px -8px ${slide.bgColor}`,
+            }}
+          >
+            {t("hero.discover")}
+          </button>
+        </a>
       </div>
 
       {/* Navigation Controls */}

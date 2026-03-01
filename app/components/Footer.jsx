@@ -2,6 +2,7 @@
 
 import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
 const Footer = () => {
@@ -16,13 +17,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Logo & About */}
           <div className="col-span-1 md:col-span-1 space-y-6">
-            <Image 
-              src="/logo.png" 
-              alt="FoodBrand Logo" 
-              width={180} 
-              height={60} 
-              className="h-16 w-auto object-contain brightness-110 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-            />
+            <Link href="/">
+              <Image 
+                src="/logo.png" 
+                alt="FoodBrand Logo" 
+                width={180} 
+                height={60} 
+                className="h-16 w-auto object-contain brightness-110 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+              />
+            </Link>
             <p className="text-white/60 leading-relaxed font-light">
               {t("footer.about")}
             </p>

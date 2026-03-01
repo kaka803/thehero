@@ -12,8 +12,9 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function CheckoutPage() {
   const { cartItems, cartTotal, clearCart } = useCart();
-  const { t } = useLanguage();
+  const { lang: currentLang, t } = useLanguage();
   const router = useRouter();
+  console.log("CheckoutPage Render - currentLang:", currentLang); // Debug log
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [orderCount, setOrderCount] = useState(0);
@@ -198,7 +199,7 @@ export default function CheckoutPage() {
                 <p className="text-white/60 font-medium">
                   {t("checkout.success.reward_remaining")
                     .replace("{count}", (5 - (orderCount % 5)))
-                    .replace("{s}", (5 - (orderCount % 5)) !== 1 ? (lang === 'de' ? 'en' : 's') : '')}
+                    .replace("{s}", (5 - (orderCount % 5)) !== 1 ? (currentLang === 'de' ? 'en' : 's') : '')}
                 </p>
              )}
           </div>
@@ -275,7 +276,7 @@ export default function CheckoutPage() {
                   )}
                   {!isCheckingLoyalty && orderCount > 0 && (
                      <p className="absolute right-4 bottom-4 text-[10px] uppercase font-bold text-[#d3b673] tracking-widest">
-                        {t("checkout.prev_orders").replace("{count}", orderCount).replace("{s}", orderCount > 1 ? (lang === 'de' ? 'en' : 's') : '')}
+                        {t("checkout.prev_orders").replace("{count}", orderCount).replace("{s}", orderCount > 1 ? (currentLang === 'de' ? 'en' : 's') : '')}
                      </p>
                   )}
                 </div>
