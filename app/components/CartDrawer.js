@@ -131,7 +131,7 @@ export default function CartDrawer() {
                   <Image src={item.image} alt={item.name} width={60} height={60} className="object-contain" />
                   <button 
                     onClick={() => removeFromCart(item._id, item.variant)}
-                    className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100 font-bold"
+                    className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all scale-100 md:scale-75 md:group-hover:scale-100 font-bold"
                   >
                     <Trash2 size={12} />
                   </button>
