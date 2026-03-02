@@ -6,7 +6,7 @@ import { verifyAdminAuth } from "@/lib/auth";
 export async function GET() {
   await dbConnect();
   try {
-    const products = await Product.find({}).sort({ createdAt: -1 });
+    const products = await Product.find({}).sort({ sortOrder: 1, createdAt: -1 });
     return NextResponse.json(products);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -20,6 +20,15 @@ export async function POST(request) {
   await dbConnect();
   try {
     const data = await request.json();
+    
+    // If specialLabel is provided, clear it from all other products
+    if (data.specialLabel) {
+      await Product.updateMany(
+        { specialLabel: data.specialLabel },
+        { $set: { specialLabel: null } }
+      );
+    }
+
     const product = await Product.create(data);
     return NextResponse.json(product, { status: 201 });
   } catch (error) {

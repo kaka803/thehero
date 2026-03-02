@@ -21,9 +21,9 @@ export default function CartDrawer() {
   const drawerRef = useRef(null);
   const overlayRef = useRef(null);
 
-  // Get Tahini Hero product for cross-sell
-  const tahiniHero = cartItems.find(item => item.name === "TAHINI HERO");
-  const hasHumousHero = cartItems.some(item => item.name === "HUMOUS HERO");
+  // Get products with special labels for cross-sell logic
+  const tahiniInCart = cartItems.find(item => item.specialLabel === "tahini");
+  const hasHummusInCart = cartItems.some(item => item.specialLabel === "hummus");
 
   useEffect(() => {
     if (!isCartOpen) {
@@ -35,7 +35,7 @@ export default function CartDrawer() {
   }, [isCartOpen]);
 
   const handleCheckout = () => {
-    if (hasHumousHero && !tahiniHero && !showCrossSell) {
+    if (hasHummusInCart && !tahiniInCart && !showCrossSell) {
       setShowCrossSell(true);
       return;
     }

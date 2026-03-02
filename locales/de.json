@@ -53,6 +53,7 @@
       "privacy": "Datenschutzrichtlinie",
       "terms": "Nutzungsbedingungen",
       "cookie": "Cookie-Richtlinie",
+      "legal": "Impressum",
       "shipping": "Versandinformationen"
     }
   },
@@ -279,6 +280,209 @@
       "success": "Einstellungen erfolgreich gespeichert!",
       "error": "Fehler beim Speichern der Einstellungen.",
       "something_wrong": "Etwas ist schief gelaufen."
+    }
+  },
+  "about": {
+    "title": "Über uns",
+    "intro_title": "Zeit ist Hayat.",
+    "intro_subtitle": "Und genau darum geht es.",
+    "section1_text": "Ich bin Familienvater. Und ich bin mit Hummus groß geworden. Nicht aus dem Supermarkt. Sondern so, wie man ihn kennt: Kichererbsen einweichen. Stundenlang kochen. Schälen. Pürieren. Abschmecken. Das war früher normal. Heute ist Zeit das Wertvollste, was wir haben.",
+    "section2_title": "Der Moment, der alles verändert hat",
+    "section2_p1": "Als Vater wollte ich, dass meine Kinder das essen, womit ich groß geworden bin. Clean Label. Ohne Zusatzstoffe. Ohne Konservierungsmittel. Ehrlich.",
+    "section2_p2": "Aber ganz ehrlich: Wer hat heute noch 24 Stunden Zeit, um Kichererbsen vorzubereiten? Zwischen Arbeit, Familie und Alltag bleibt oft keine Luft für lange Vorbereitungen. Und genau da entstand die Idee.",
+    "section2_p3": "Was wäre, wenn es eine Basis gäbe… die alles vorbereitet hat – aber trotzdem frisch bleibt?",
+    "section3_title": "So entstand Hummus Hero",
+    "section3_p1": "Ich wollte kein Fertigprodukt. Ich wollte keine Kompromisse. Ich wollte Kontrolle. Also haben wir eine Grundbasis entwickelt: 100 Prozent gekochte, perfekt pürierte Kichererbsen. Ohne Zusatzstoffe. Ohne Chemie. Ohne Kühlung.",
+    "section3_p2": "Und dann kam der schönste Teil: Meine Kinder stehen mit mir in der Küche. Wir öffnen den Beutel. Geben Zitrone, Tahini, vielleicht Knoblauch dazu. Und mixen. Eine Minute. Frischer Hummus. Wie früher. Nur ohne 24 Stunden Vorbereitung.",
+    "section4_title": "Warum „Hero“?",
+    "section4_p1": "Weil diese Produkte uns Zeit zurückgeben. Zeit für Familie. Zeit für Gespräche. Zeit für echtes Kochen.",
+    "section4_p2": "Die Hero Line ist mehr als nur eine Produktlinie. Es ist eine Idee: Die Helden übernehmen die Vorbereitung. Du entscheidest den Geschmack.",
+    "section4_list": "Hummus Hero. Baba Hero. Foul Hero. Eine Basis. Unendlich viele Möglichkeiten.",
+    "section5_title": "Für Familien. Für Gastronomie. Für alle, die bewusst essen.",
+    "section5_p1": "Was zuhause funktioniert, funktioniert auch in der Profiküche. Planungssicherheit. Kein Food Waste. Keine Vorproduktion. Frische auf Bestellung. Und trotzdem Clean Label.",
+    "section6_title": "Unsere Mission",
+    "section6_p1": "Wir glauben nicht an Fertigprodukte. Wir glauben an Vorbereitung. Wir glauben an echte Zutaten. Und an die Freiheit, selbst zu entscheiden.",
+    "section6_p2": "Denn am Ende geht es nicht nur um Hummus. Es geht um Zeit. Und Zeit ist Hayat."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Wir freuen uns, von Ihnen zu hören. Senden Sie uns eine Nachricht!",
+    "name": "Name",
+    "email": "E-Mail",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet...",
+    "success": "Vielen Dank! Ihre Nachricht wurde gesendet.",
+    "info_title": "Kontaktinformationen",
+    "address_label": "Adresse",
+    "email_label": "E-Mail schreiben",
+    "phone_label": "Rufen Sie uns an",
+    "office": "Büro"
+  },
+  "seo": {
+    "home": {
+      "title": "Hummus in 1 Minute selber machen | Hummus Hero | The Hero Levant Line",
+      "description": "Mit Hummus Hero bereitest du frischen, cremigen Hummus in nur 1 Minute zu. Ohne Konservierungsmittel. Ohne Kühlung. Perfekt für Gastronomie und Zuhause."
+    },
+    "about": {
+      "title": "Über uns | Die Geschichte hinter Hummus Hero",
+      "description": "Erfahren Sie mehr über The Hero Levant Line. Unsere Mission: Zeit zurückgeben durch ehrliche Vorbereitung und echte Zutaten. Zeit ist Hayat."
+    },
+    "contact": {
+      "title": "Kontaktieren Sie uns | Hummus Hero Support",
+      "description": "Haben Sie Fragen zu unseren Produkten oder benötigen Sie eine Lösung für Ihre Gastronomie? Wir sind für Sie da."
+    },
+    "products": {
+      "hummus_hero": {
+        "title": "Hummus Hero – Frischen Hummus in 1 Minute selber machen",
+        "description": "Hummus Hero ist die perfekte Basis für cremigen Hummus ohne Zusatzstoffe. Ideal für Restaurants und Familien."
+      },
+      "baba_hero": {
+        "title": "Baba Hero – Baba Ganoush in 1 Minute zubereiten",
+        "description": "Baba Hero ist deine Auberginenbasis für frischen Baba Ganoush. Clean Label. Maximale Frische. Minimale Vorbereitung."
+      },
+      "foul_hero": {
+        "title": "Foul Hero – Frisches Ful Medames in 1 Minute",
+        "description": "Foul Hero bringt dir frisches Ful Medames in nur 1 Minute auf den Teller. Perfekt für Gastronomie, Catering und Food Service."
+      }
+    }
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen (FAQ)",
+    "hummus": [
+      {
+        "q": "Wie macht man Hummus einfach?",
+        "a": "Mit Hummus Hero ist es ganz einfach: Beutel öffnen, mit Tahini, Zitrone und Gewürzen mixen – fertig in 1 Minute!"
+      },
+      {
+        "q": "Wie lange dauert Hummus machen?",
+        "a": "Normalerweise Stunden, aber mit unserer vorbreiteten Basis dauert es nur 60 Sekunden."
+      },
+      {
+        "q": "Kann man Hummus vorbereiten?",
+        "a": "Ja, unsere Basis ist ungekühlt haltbar und kann bei Bedarf sofort frisch zubereitet werden."
+      },
+      {
+        "q": "Wie bleibt Hummus cremig?",
+        "a": "Das Geheimnis liegt in der perfekten Kochung und Pürierung unserer Kichererbsen."
+      }
+    ],
+    "baba": [
+      {
+        "q": "Was ist Baba Ganoush?",
+        "a": "Ein orientalischer Dip aus gerösteten Auberginen und Tahini."
+      },
+      {
+        "q": "Wie macht man Baba Ganoush cremig?",
+        "a": "Verwenden Sie Baba Hero als Basis und mixen Sie es mit hochwertigem Tahini."
+      }
+    ],
+    "foul": [
+      {
+        "q": "Was ist Ful Medames?",
+        "a": "Ein traditionelles orientalisches Frühstückgericht aus Saubohnen."
+      },
+      {
+        "q": "Wie lange kocht man Ful?",
+        "a": "Mit Foul Hero entfällt das stundenlange Kochen – es ist bereits perfekt gegart."
+      }
+    ]
+  },
+  "legal_pages": {
+    "last_updated": "Zuletzt aktualisiert: 02. März 2026",
+    "legal": {
+      "title": "Impressum",
+      "sections": [
+        {
+          "title": "Angaben gemäß § 5 TMG",
+          "content": "The Hero Levant Line\nHeberstraße 12\n10115 Berlin\nDeutschland"
+        },
+        {
+          "title": "Vertreten durch",
+          "content": "Geschäftsführer: Zeit Hayat"
+        },
+        {
+          "title": "Kontakt",
+          "content": "Telefon: +49 (0) 123 456 789\nE-Mail: hello@thehero.com"
+        },
+        {
+          "title": "Umsatzsteuer-ID",
+          "content": "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE123456789"
+        },
+        {
+          "title": "EU-Streitschlichtung",
+          "content": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr/. Unsere E-Mail-Adresse finden Sie oben im Impressum."
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Datenschutz",
+      "sections": [
+        {
+          "title": "1. Datenschutz auf einen Blick",
+          "content": "Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können."
+        },
+        {
+          "title": "2. Datenerfassung auf dieser Website",
+          "content": "Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen. Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben."
+        },
+        {
+          "title": "3. Ihre Rechte",
+          "content": "Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen."
+        }
+      ]
+    },
+    "terms": {
+      "title": "AGB",
+      "sections": [
+        {
+          "title": "1. Geltungsbereich",
+          "content": "Für alle Lieferungen von The Hero Levant Line an Verbraucher gelten diese Allgemeinen Geschäftsbedingungen (AGB)."
+        },
+        {
+          "title": "2. Vertragspartner",
+          "content": "Der Kaufvertrag kommt zustande mit The Hero Levant Line, Inhaber: Zeit Hayat, Heberstraße 12, 10115 Berlin."
+        },
+        {
+          "title": "3. Vertragsschluss",
+          "content": "Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern nur einen unverbindlichen Online-Katalog dar. Durch Anklicken des Buttons [Kaufen/Zahlungspflichtig bestellen] geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab."
+        }
+      ]
+    },
+    "cookies": {
+      "title": "Cookie-Richtlinie",
+      "sections": [
+        {
+          "title": "Was sind Cookies?",
+          "content": "Cookies sind kleine Textdateien, die auf Ihrem Computer gespeichert werden und die Ihr Browser speichert. Wir verwenden Cookies, um unsere Website nutzerfreundlicher, effektiver und sicherer zu machen."
+        },
+        {
+          "title": "Funktionale Cookies",
+          "content": "Einige Cookies sind für den Betrieb der Website technisch notwendig. Dazu gehören z. B. die Speicherung Ihres Warenkorbs oder Ihrer Spracheinstellungen."
+        },
+        {
+          "title": "Analyse-Cookies",
+          "content": "Wir verwenden Analyse-Cookies, um anonyme Informationen darüber zu sammeln, wie Besucher unsere Website nutzen. Dies hilft uns, die Website stetig zu verbessern."
+        }
+      ]
+    },
+    "shipping": {
+      "title": "Versand",
+      "sections": [
+        {
+          "title": "Versandkosten",
+          "content": "Wir berechnen eine Versandpauschale von 4,90 € pro Bestellung innerhalb Deutschlands. Ab einem Bestellwert von 30,00 € liefern wir versandkostenfrei."
+        },
+        {
+          "title": "Lieferzeiten",
+          "content": "Sofern im jeweiligen Angebot keine andere Frist angegeben ist, erfolgt die Lieferung der Ware im Inland (Deutschland) innerhalb von 2 - 3 Werktagen."
+        },
+        {
+          "title": "Zahlung",
+          "content": "Sie haben folgende Zahlungsmöglichkeiten: Zahlung per Kreditkarte, PayPal, Klarna (Sofortüberweisung)."
+        }
+      ]
     }
   }
 }

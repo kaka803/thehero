@@ -79,6 +79,26 @@ export default function CheckoutPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    if (orderSuccess) {
+      const g = require("gsap").default;
+      g.fromTo(".loyalty-bubble", 
+        { scale: 0, opacity: 0, rotation: -45 }, 
+        { scale: 1.1, opacity: 1, rotation: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" }
+      );
+      
+      // Secondary "stamp" effect animation for the current one
+      const currentIdx = (orderCount % 5 === 0 ? 5 : orderCount % 5) - 1;
+      setTimeout(() => {
+        g.to(`.loyalty-bubble:nth-child(${currentIdx + 1})`, {
+           scale: 1,
+           duration: 0.2,
+           ease: "power2.inOut"
+        });
+      }, 1000);
+    }
+  }, [orderSuccess, orderCount]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -150,7 +170,7 @@ export default function CheckoutPage() {
                <p className="text-white/40 text-sm italic">{t("checkout.success.loyalty_desc").replace("{pct}", discountPercentage)}</p>
              </div>
 
-             <div className="flex items-center justify-between max-w-md mx-auto relative z-10">
+             <div className="flex items-center justify-between max-w-md mx-auto relative z-10 px-2 lg:px-4">
                 {[1, 2, 3, 4, 5].map((step) => {
                   const isCompleted = step <= currentProgress;
                   const isCurrent = step === currentProgress;
@@ -159,18 +179,29 @@ export default function CheckoutPage() {
                   return (
                     <div key={step} className="flex flex-col items-center gap-4 relative">
                       <div 
-                        className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-700 shadow-2xl ${
+                        className={`loyalty-bubble w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-700 shadow-2xl relative overflow-hidden ${
                           isCompleted 
-                            ? "bg-[#d3b673] text-black scale-110 shadow-[#d3b673]/40" 
+                            ? "bg-white text-black scale-110 shadow-[#d3b673]/40" 
                             : "bg-white/5 border border-white/10 text-white/20"
-                        } ${isCurrent ? "ring-4 ring-white/20" : ""}`}
+                        } ${isCurrent ? "ring-4 ring-[#d3b673]/50" : ""}`}
                       >
-                        {isReward ? (
-                          <Gift size={24} className={isCompleted && orderCount % 5 === 0 ? "animate-pulse" : ""} />
-                        ) : isCompleted ? (
-                          <CheckCircle2 size={24} />
+                        {isCompleted ? (
+                          <div className="relative w-full h-full p-2 animate-in zoom-in duration-500">
+                             <Image 
+                               src="/logo.png" 
+                               alt="Stamp" 
+                               width={40} 
+                               height={40} 
+                               className="w-full h-full object-contain filter brightness-0 opacity-80" 
+                             />
+                             {isReward && (
+                               <div className="absolute inset-0 bg-[#d3b673]/10 animate-pulse"></div>
+                             )}
+                          </div>
+                        ) : isReward ? (
+                          <Gift size={24} className="opacity-40" />
                         ) : (
-                          <span className="text-sm font-bold">{step}</span>
+                          <span className="text-sm font-black italic">{step}</span>
                         )}
                       </div>
                       {isCurrent && (
@@ -181,9 +212,9 @@ export default function CheckoutPage() {
                     </div>
                   );
                 })}
-                <div className="absolute top-6 left-6 right-6 md:top-7 md:left-7 md:right-7 h-[2px] bg-white/10 -z-10"></div>
+                <div className="absolute top-6 left-6 right-6 md:top-8 md:left-8 md:right-8 h-[2px] bg-white/10 -z-10"></div>
                 <div 
-                  className="absolute top-6 left-6 md:top-7 md:left-7 h-[2px] bg-[#d3b673] -z-10 transition-all duration-1000 shadow-[0_0_10px_#d3b673]"
+                  className="absolute top-6 left-6 md:top-8 md:left-8 h-[2px] bg-[#d3b673] -z-10 transition-all duration-1000 shadow-[0_0_15px_#d3b673]"
                   style={{ width: `${((currentProgress - 1) / 4) * 100}%` }}
                 ></div>
              </div>

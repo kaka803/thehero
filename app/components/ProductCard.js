@@ -39,7 +39,7 @@ const ProductCard = ({ _id, name, description, details, image, color, status, in
                 style={{ backgroundColor: color }}
               ></div>
             )}
-            <div className={`relative z-10 transition-all duration-500 ${isComingSoon ? "blur-md grayscale opacity-50 scale-95" : "group-hover:scale-110 group-hover:-rotate-3"}`}>
+            <div className={`relative z-10 transition-all duration-500 ${isComingSoon ? "blur-md opacity-60 scale-95" : "group-hover:scale-110 group-hover:-rotate-3"}`}>
               <Image 
                 src={image} 
                 alt={name} 
@@ -53,12 +53,12 @@ const ProductCard = ({ _id, name, description, details, image, color, status, in
 
         {/* Product Info */}
         <div className="w-full sm:w-1/2 space-y-4 md:space-y-6">
-          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight ${isComingSoon ? "text-white/40" : ""}`} style={!isComingSoon ? { color: color } : {}}>
+          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight ${isComingSoon ? "text-white/40 blur-[2px]" : ""}`} style={!isComingSoon ? { color: color } : {}}>
             {name}
           </h2>
           
           <div className="space-y-4">
-            <p className={`text-lg leading-relaxed font-light ${isComingSoon ? "text-white/20" : "text-white/80"}`}>
+            <p className={`text-lg leading-relaxed font-light ${isComingSoon ? "text-white/20 blur-[3px]" : "text-white/80"}`}>
               {description}
             </p>
             {!isComingSoon && (
@@ -80,7 +80,7 @@ const ProductCard = ({ _id, name, description, details, image, color, status, in
           )}
 
           {isComingSoon ? (
-            <div className="w-full text-center py-4 rounded-xl bg-white/5 border border-white/10 text-white/40 font-bold uppercase tracking-widest cursor-not-allowed">
+            <div className="w-full text-center py-4 rounded-xl bg-white/5 border border-white/10 text-white/30 blur-[1px] font-bold uppercase tracking-widest cursor-not-allowed">
               {t("products.coming_soon")}
             </div>
           ) : (

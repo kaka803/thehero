@@ -1,9 +1,27 @@
+import { notFound } from "next/navigation";
+import dbConnect from "@/lib/mongodb";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import ProductDetail from "../../components/ProductDetail";
-import { notFound } from "next/navigation";
-import dbConnect from "@/lib/mongodb";
 import Product from "@/models/Product";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  await dbConnect();
+  const product = await Product.findById(id).lean();
+
+  if (!product) return { title: "Product Not Found" };
+
+  const slug = product.name.toLowerCase().replace(/ /g, "-");
+  
+  return {
+    title: `${product.name} – Frischen Hummus in 1 Minute selber machen | The Hero`,
+    description: `${product.description} Entdecken Sie ${product.name} von The Hero Levant Line. 100% Clean Label, ohne Zusatzstoffe. Perfekt zubereitet in nur 1 Minute.`,
+    alternates: {
+      canonical: `/products/${id}`,
+    }
+  };
+}
 
 export default async function Page({ params }) {
   const { id } = await params;

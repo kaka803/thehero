@@ -15,7 +15,7 @@ export default function CrossSellModal({ isOpen, onClose, onProceed }) {
   const { t } = useLanguage();
   const router = useRouter();
 
-  const tahiniProduct = products?.find((p) => p.name === "TAHINI HERO");
+  const tahiniProduct = products?.find((p) => p.specialLabel === "tahini");
 
   useEffect(() => {
     if (!isOpen) {

@@ -53,6 +53,7 @@
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
       "cookie": "Cookie Policy",
+      "legal": "Legal Notice",
       "shipping": "Shipping Info"
     }
   },
@@ -279,6 +280,209 @@
       "success": "Settings saved successfully!",
       "error": "Failed to save settings.",
       "something_wrong": "Something went wrong."
+    }
+  },
+  "about": {
+    "title": "About us",
+    "intro_title": "Time is Hayat.",
+    "intro_subtitle": "And that's exactly what it's all about.",
+    "section1_text": "I am a father. And I grew up with hummus. Not from the supermarket. But the way you know it: soaking chickpeas. Cooking for hours. Peeling. Pureeing. Tasting. That used to be normal. Today, time is the most valuable thing we have.",
+    "section2_title": "The moment that changed everything",
+    "section2_p1": "As a father, I wanted my children to eat what I grew up with. Clean label. Without additives. Without preservatives. Honest.",
+    "section2_p2": "But quite honestly: Who today still has 24 hours to prepare chickpeas? Between work, family, and everyday life, there is often no room for long preparations. And that's exactly where the idea was born.",
+    "section2_p3": "What if there was a base... that had everything prepared - but still stayed fresh?",
+    "section3_title": "How Hummus Hero was born",
+    "section3_p1": "I didn't want a finished product. I didn't want compromises. I wanted control. So we developed a basic base: 100 percent cooked, perfectly pureed chickpeas. Without additives. Without chemicals. Without cooling.",
+    "section3_p2": "And then came the best part: My children stand in the kitchen with me. We open the bag. Add lemon, tahini, maybe garlic. And mix. One minute. Fresh hummus. Just like before. Only without 24 hours of preparation.",
+    "section4_title": "Why „Hero“?",
+    "section4_p1": "Because these products give us time back. Time for family. Time for conversations. Time for real cooking.",
+    "section4_p2": "The Hero Line is more than just a product line. It is an idea: The heroes take over the preparation. You decide the taste.",
+    "section4_list": "Hummus Hero. Baba Hero. Foul Hero. One base. Infinite possibilities.",
+    "section5_title": "For families. For gastronomy. For everyone who eats consciously.",
+    "section5_p1": "What works at home also works in the professional kitchen. Planning security. No food waste. No pre-production. Freshness on order. And still Clean Label.",
+    "section6_title": "Our Mission",
+    "section6_p1": "We don't believe in finished products. We believe in preparation. We believe in real ingredients. And in the freedom to decide for ourselves.",
+    "section6_p2": "Because in the end, it's not just about hummus. It's about time. And time is Hayat."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you. Send us a message!",
+    "name": "Full Name",
+    "email": "Email Address",
+    "subject": "Subject",
+    "message": "Your Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Thank you! Your message has been sent.",
+    "info_title": "Contact Information",
+    "address_label": "Address",
+    "email_label": "Email us",
+    "phone_label": "Call us",
+    "office": "Office"
+  },
+  "seo": {
+    "home": {
+      "title": "Make Hummus in 1 Minute | Hummus Hero | The Hero Levant Line",
+      "description": "With Hummus Hero, you can prepare fresh, creamy hummus in just 1 minute. No preservatives. No cooling required. Perfect for food service and home."
+    },
+    "about": {
+      "title": "About Us | The Story Behind Hummus Hero",
+      "description": "Learn more about The Hero Levant Line. Our mission: giving time back through honest preparation and real ingredients. Time is Hayat."
+    },
+    "contact": {
+      "title": "Contact Us | Hummus Hero Support",
+      "description": "Do you have questions about our products or need a solution for your restaurant? We are here for you."
+    },
+    "products": {
+      "hummus_hero": {
+        "title": "Hummus Hero – Make Fresh Hummus in 1 Minute",
+        "description": "Hummus Hero is the perfect base for creamy hummus without additives. Ideal for restaurants and families."
+      },
+      "baba_hero": {
+        "title": "Baba Hero – Prepare Baba Ganoush in 1 Minute",
+        "description": "Baba Hero is your eggplant base for fresh Baba Ganoush. Clean Label. Maximum freshness. Minimum preparation."
+      },
+      "foul_hero": {
+        "title": "Foul Hero – Fresh Ful Medames in 1 Minute",
+        "description": "Foul Hero brings fresh Ful Medames to your plate in just 1 minute. Perfect for gastronomy, catering and food service."
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions (FAQ)",
+    "hummus": [
+      {
+        "q": "How to make hummus easy?",
+        "a": "With Hummus Hero it's easy: open the bag, mix with tahini, lemon and spices - ready in 1 minute!"
+      },
+      {
+        "q": "How long does it take to make hummus?",
+        "a": "Usually hours, but with our prepared base it only takes 60 seconds."
+      },
+      {
+        "q": "Can you prepare hummus in advance?",
+        "a": "Yes, our base is stable at room temperature and can be prepared fresh immediately when needed."
+      },
+      {
+        "q": "How does hummus stay creamy?",
+        "a": "The secret lies in the perfect cooking and pureeing of our chickpeas."
+      }
+    ],
+    "baba": [
+      {
+        "q": "What is Baba Ganoush?",
+        "a": "An oriental dip made from roasted eggplants and tahini."
+      },
+      {
+        "q": "How to make Baba Ganoush creamy?",
+        "a": "Use Baba Hero as a base and mix it with high-quality tahini."
+      }
+    ],
+    "foul": [
+      {
+        "q": "What is Ful Medames?",
+        "a": "A traditional oriental breakfast dish made from fava beans."
+      },
+      {
+        "q": "How long do you cook Ful?",
+        "a": "With Foul Hero, hours of cooking are eliminated - it is already perfectly cooked."
+      }
+    ]
+  },
+  "legal_pages": {
+    "last_updated": "Last updated: March 02, 2026",
+    "legal": {
+      "title": "Legal Notice",
+      "sections": [
+        {
+          "title": "Information according to § 5 TMG",
+          "content": "The Hero Levant Line\nHeberstraße 12\n10115 Berlin\nGermany"
+        },
+        {
+          "title": "Represented by",
+          "content": "Managing Director: Zeit Hayat"
+        },
+        {
+          "title": "Contact",
+          "content": "Phone: +49 (0) 123 456 789\nEmail: hello@thehero.com"
+        },
+        {
+          "title": "VAT ID",
+          "content": "Value added tax identification number according to § 27 a Value Added Tax Act: DE123456789"
+        },
+        {
+          "title": "EU Dispute Resolution",
+          "content": "The European Commission provides a platform for online dispute resolution (ODR): https://ec.europa.eu/consumers/odr/. Our email address can be found at the top of the legal notice."
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy",
+      "sections": [
+        {
+          "title": "1. Data protection at a glance",
+          "content": "The following information provides a simple overview of what happens to your personal data when you visit this website. Personal data is any data with which you can be personally identified."
+        },
+        {
+          "title": "2. Data collection on this website",
+          "content": "The data processing on this website is carried out by the website operator. Their contact details can be found in the imprint of this website. Your data is collected on the one hand by you communicating it to us. This can be, for example, data that you enter in a contact form."
+        },
+        {
+          "title": "3. Your rights",
+          "content": "You have the right to receive information about the origin, recipient and purpose of your stored personal data free of charge at any time. You also have the right to request the correction or deletion of this data."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms",
+      "sections": [
+        {
+          "title": "1. Scope",
+          "content": "These general terms and conditions (GTC) apply to all deliveries from The Hero Levant Line to consumers."
+        },
+        {
+          "title": "2. Contractual Partner",
+          "content": "The purchase contract is concluded with The Hero Levant Line, Owner: Zeit Hayat, Heberstraße 12, 10115 Berlin."
+        },
+        {
+          "title": "3. Conclusion of Contract",
+          "content": "The representation of the products in the online shop does not constitute a legally binding offer, but only a non-binding online catalog. By clicking the button [Buy/Order with obligation to pay], you place a binding order for the goods contained in the shopping cart."
+        }
+      ]
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "sections": [
+        {
+          "title": "What are cookies?",
+          "content": "Cookies are small text files that are stored on your computer and saved by your browser. We use cookies to make our website more user-friendly, effective and secure."
+        },
+        {
+          "title": "Functional cookies",
+          "content": "Some cookies are technically necessary for the operation of the website. This includes, for example, storing your shopping cart or your language settings."
+        },
+        {
+          "title": "Analysis cookies",
+          "content": "We use analysis cookies to collect anonymous information about how visitors use our website. This helps us to continuously improve the website."
+        }
+      ]
+    },
+    "shipping": {
+      "title": "Shipping",
+      "sections": [
+        {
+          "title": "Shipping Costs",
+          "content": "We charge a flat shipping fee of €4.90 per order within Germany. For orders over €30.00, we deliver free of charge."
+        },
+        {
+          "title": "Delivery Times",
+          "content": "Unless another period is specified in the respective offer, the goods are delivered domestically (Germany) within 2 - 3 working days."
+        },
+        {
+          "title": "Payment Terms",
+          "content": "You have the following payment options: Payment by credit card, PayPal, Klarna (immediate transfer)."
+        }
+      ]
     }
   }
 }

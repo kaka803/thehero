@@ -48,6 +48,15 @@ const ProductSchema = new mongoose.Schema({
   ingredients: {
     type: [String],
   },
+  sortOrder: {
+    type: Number,
+    default: 0,
+  },
+  specialLabel: {
+    type: String,
+    enum: [null, "hummus", "tahini"],
+    default: null,
+  },
 }, {
   timestamps: true,
 });

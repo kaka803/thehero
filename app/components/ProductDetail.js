@@ -3,17 +3,62 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { ArrowLeft, Check, Minus, Plus } from 'lucide-react';
+import { ArrowLeft, Check, Minus, Plus, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from "@/context/LanguageContext";
 import CrossSellModal from './CrossSellModal';
+import Script from "next/script";
 
 const ProductDetail = ({ product }) => {
+  const { t } = useLanguage();
   const [variant, setVariant] = useState('single');
   const [quantity, setQuantity] = useState(1);
   const [showCrossSell, setShowCrossSell] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
   const { addToCart, cartItems } = useCart();
   const router = useRouter();
+
+  // Determine FAQ category based on product name
+  const productName = product.name.toLowerCase();
+  const faqCategory = productName.includes('hummus') ? 'hummus' : 
+                      productName.includes('baba') ? 'baba' : 
+                      productName.includes('foul') ? 'foul' : null;
+
+  const faqs = faqCategory ? t(`faq.${faqCategory}`) : [];
+
+  // Schema Markup
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.name,
+    "image": product.image,
+    "description": product.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "The Hero Levant Line"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": product.price || 3.50,
+      "priceCurrency": "USD",
+      "availability": product.status === "live" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+    }
+  };
+
+  const faqJsonLd = faqCategory && faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a
+      }
+    }))
+  } : null;
+
   const isComingSoon = product.status?.toLowerCase().trim() === 'coming-soon';
 
   const increment = () => setQuantity(prev => (prev < 99 ? prev + 1 : prev));
@@ -24,10 +69,10 @@ const ProductDetail = ({ product }) => {
   };
 
   const handleBuyNow = () => {
-    const isHumousHero = product.name === "HUMOUS HERO";
-    const hasTahiniInCart = cartItems.some(item => item.name === "TAHINI HERO");
+    const isHummus = product.specialLabel === 'hummus';
+    const hasTahiniInCart = cartItems.some(item => item.specialLabel === 'tahini');
 
-    if (isHumousHero && !hasTahiniInCart && !showCrossSell) {
+    if (isHummus && !hasTahiniInCart && !showCrossSell) {
       setShowCrossSell(true);
       return;
     }
@@ -264,6 +309,41 @@ const ProductDetail = ({ product }) => {
               </div>
           </div>
       </div>
+
+      {/* FAQ Section */}
+      {faqCategory && faqs.length > 0 && (
+        <div className="mt-24 space-y-8 max-w-4xl mx-auto">
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#d3b673] text-[10px] font-bold tracking-[0.3em] uppercase">
+              <HelpCircle size={14} />
+              <span>{t("faq.title")}</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic">{t("faq.title")}</h2>
+          </div>
+
+          <div className="space-y-4">
+             {faqs.map((faq, idx) => (
+                <div key={idx} className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md transition-all">
+                  <button 
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full p-6 md:p-8 flex items-center justify-between text-left group"
+                  >
+                    <span className="text-lg md:text-xl font-bold group-hover:text-[#d3b673] transition-colors">{faq.q}</span>
+                    {openFaq === idx ? <ChevronUp className="text-[#d3b673]" /> : <ChevronDown className="text-white/20" />}
+                  </button>
+                  {openFaq === idx && (
+                    <div className="px-6 md:px-8 pb-8 animate-in fade-in slide-in-from-top-4 duration-500">
+                       <p className="text-white/60 leading-relaxed text-lg">
+                         {faq.a}
+                       </p>
+                    </div>
+                  )}
+                </div>
+             ))}
+          </div>
+        </div>
+      )}
+
       <CrossSellModal 
         isOpen={showCrossSell} 
         onClose={() => setShowCrossSell(false)} 
@@ -273,6 +353,20 @@ const ProductDetail = ({ product }) => {
           router.push('/checkout');
         }}
       />
+
+      {/* Structured Data Scripts */}
+      <Script
+        id="product-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {faqJsonLd && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
     </div>
   );
 };

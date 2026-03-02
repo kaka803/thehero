@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Order from "@/models/Order";
 import Settings from "@/models/Settings";
+import { sendOrderEmail, sendAdminOrderNotification } from "@/lib/mail";
 
 export async function POST(req) {
   try {
@@ -24,6 +25,10 @@ export async function POST(req) {
       isDiscounted,
       orderNumber: currentOrderNumber,
     });
+
+    // 3. Send confirmation emails (don't block the response)
+    sendOrderEmail(newOrder).catch(err => console.error("Customer email send failed:", err));
+    sendAdminOrderNotification(newOrder).catch(err => console.error("Admin email notification failed:", err));
 
     return NextResponse.json({
       success: true,

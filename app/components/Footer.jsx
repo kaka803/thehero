@@ -49,9 +49,8 @@ const Footer = () => {
               {[
                 { label: t("footer.links.home"), href: "/" },
                 { label: t("footer.links.products"), href: "/products" },
-                { label: t("footer.links.story"), href: "#" },
-                { label: t("footer.links.recipes"), href: "#" },
-                { label: t("footer.links.contact"), href: "#" }
+                { label: t("footer.links.story"), href: "/about" },
+                { label: t("footer.links.contact"), href: "/contact" }
               ].map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-white/60 hover:text-[#d3b673] transition-colors duration-300">
@@ -67,10 +66,11 @@ const Footer = () => {
             <h4 className="text-white font-semibold text-lg tracking-wide">{t("footer.legal")}</h4>
             <ul className="space-y-3">
               {[
-                { label: t("footer.links.privacy"), href: "#" },
-                { label: t("footer.links.terms"), href: "#" },
-                { label: t("footer.links.cookie"), href: "#" },
-                { label: t("footer.links.shipping"), href: "#" }
+                { label: t("footer.links.legal"), href: "/legal" },
+                { label: t("footer.links.privacy"), href: "/privacy" },
+                { label: t("footer.links.terms"), href: "/terms" },
+                { label: t("footer.links.cookie"), href: "/cookies" },
+                { label: t("footer.links.shipping"), href: "/shipping" }
               ].map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-white/60 hover:text-[#d3b673] transition-colors duration-300">

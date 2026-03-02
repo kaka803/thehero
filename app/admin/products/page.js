@@ -85,6 +85,8 @@ export default function AdminProductsPage() {
                 <th className="px-8 py-5">{t("admin.products.table.product")}</th>
                 <th className="px-8 py-5">{t("admin.products.table.stock")}</th>
                 <th className="px-8 py-5">{t("admin.products.table.price")}</th>
+                <th className="px-8 py-5">Sort</th>
+                <th className="px-8 py-5">Label</th>
                 <th className="px-8 py-5 text-right">{t("admin.products.table.actions")}</th>
               </tr>
             </thead>
@@ -116,6 +118,16 @@ export default function AdminProductsPage() {
                         </span>
                     </td>
                     <td className="px-8 py-4 font-bold text-[#d3b673]">${product.price?.toFixed(2)}</td>
+                    <td className="px-8 py-4">
+                      <span className="text-white/40 text-xs font-mono">{product.sortOrder}</span>
+                    </td>
+                    <td className="px-8 py-4">
+                      {product.specialLabel && (
+                        <span className="px-2 py-1 bg-white/10 border border-white/20 rounded-md text-[9px] uppercase tracking-wider text-[#d3b673] font-bold">
+                          {product.specialLabel}
+                        </span>
+                      )}
+                    </td>
                     <td className="px-8 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button 

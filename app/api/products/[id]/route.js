@@ -25,6 +25,15 @@ export async function PUT(request, { params }) {
   await dbConnect();
   try {
     const data = await request.json();
+
+    // If specialLabel is provided, clear it from all other products
+    if (data.specialLabel) {
+      await Product.updateMany(
+        { _id: { $ne: id }, specialLabel: data.specialLabel },
+        { $set: { specialLabel: null } }
+      );
+    }
+
     const product = await Product.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,
