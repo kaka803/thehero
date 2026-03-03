@@ -124,7 +124,7 @@ const ProductDetail = ({ product }) => {
                 {product.name}
               </h1>
               <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-2xl backdrop-blur-md">
-                <p className="text-[#d3b673] font-bold text-2xl">${product.price || "3.50"}</p>
+                <p className="text-[#d3b673] font-bold text-2xl">${product.price}</p>
                 <p className="text-white/20 text-[10px] uppercase tracking-tighter text-right">Per Packet</p>
               </div>
             </div>
@@ -231,7 +231,7 @@ const ProductDetail = ({ product }) => {
               <div className="flex justify-between items-center py-4 border-t border-white/10 relative z-10">
                 <p className="text-sm text-white/40 uppercase tracking-widest font-bold">Total Amount</p>
                 <p className="text-2xl font-bold text-white">
-                    ${(quantity * (variant === 'tray' ? (product.price || 3.50) * 12 * 0.85 : (product.price || 3.50))).toFixed(2)}
+                    ${(quantity * (variant === 'tray' ? (product.price) * 12 * 0.85 : (product.price))).toFixed(2)}
                 </p>
               </div>
 

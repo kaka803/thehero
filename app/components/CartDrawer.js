@@ -159,7 +159,7 @@ export default function CartDrawer() {
                       </button>
                     </div>
                     <p className="font-bold text-white">
-                      ${(item.variant === 'tray' ? (item.price || 3.50) * 12 * 0.85 : (item.price || 3.50)).toFixed(2)}
+                      ${(item.variant === 'tray' ? (item.price) * 12 * 0.85 : (item.price)).toFixed(2)}
                     </p>
                   </div>
                 </div>

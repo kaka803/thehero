@@ -10,18 +10,6 @@ const HeroSlider = () => {
   
   const slides = [
     {
-      id: 2,
-      title: t("hero.tahini_title"),
-      subtitle: t("hero.tahini_title"),
-      productImg: "/tahini-hero.png",
-      bgPattern: "/sesame-bg.png",
-      ingredientsClass: "sesame",
-      bgColor: "#d1a850",
-      textColor: "#4a3c18",
-      accentColor: "#fdf6e3",
-      description: t("hero.tahini_desc"),
-    },
-    {
       id: 1,
       title: t("hero.hummus_title"),
       subtitle: t("hero.hummus_title"), // Used for the marquee
@@ -32,7 +20,49 @@ const HeroSlider = () => {
       textColor: "#3e4c2f",
       accentColor: "#f0d9a1",
       description: t("hero.hummus_desc"),
+      key: "hummus"
     },
+    {
+      id: 2,
+      title: t("hero.tahini_title"),
+      subtitle: t("hero.tahini_title"),
+      productImg: "/tahini-hero.png",
+      bgPattern: "/sesame-bg.png",
+      ingredientsClass: "sesame",
+      bgColor: "#d1a850",
+      textColor: "#4a3c18",
+      accentColor: "#fdf6e3",
+      description: t("hero.tahini_desc"),
+      key: "tahini"
+    },
+    {
+      id: 3,
+      title: "Fuul Hero",
+      subtitle: "FUUL HERO",
+      productImg: "/fuul.png",
+      bgPattern: "/sesame-bg.png",
+      ingredientsClass: "chickpea",
+      bgColor: "#d4b86a",
+      textColor: "#3e4c2f",
+      accentColor: "#f0d9a1",
+      description: "coming soon",
+      isComingSoon: true,
+      key: "fuul"
+    },
+    {
+      id: 4,
+      title: "Baba Hero",
+      subtitle: "BABA HERO",
+      productImg: "/baba.png",
+      bgPattern: "/sesame-bg.png",
+      ingredientsClass: "chickpea",
+      bgColor: "#d4b86a",
+      textColor: "#3e4c2f",
+      accentColor: "#f0d9a1",
+      description: "coming soon",
+      isComingSoon: true,
+      key: "baba"
+    }
     
   ];
 
@@ -159,157 +189,186 @@ const HeroSlider = () => {
   return (
     <div
       ref={sliderRef}
-      className="relative w-full h-screen overflow-hidden flex items-center justify-center transition-colors duration-1000"
+      className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-start transition-colors duration-1000 pt-32 md:pt-28"
       style={{
         background: "radial-gradient(circle, #a8943f 0%, #83732c 60%, #4a4119 100%)"
       }}
     >
-      {/* Dynamic Background Image per slide - Reverted to initial working logic */}
+      {/* Background Pattern */}
       <div
         ref={backgroundRef}
-        className="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-1000 opacity-60 mix-blend-screen"
+        className="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-1000 opacity-40 mix-blend-overlay"
         style={{
           backgroundImage: `url(${slide.bgPattern})`,
-          filter: "blur(5px) contrast(1.2) brightness(0.4)",
+          filter: "blur(2px) contrast(1.1) brightness(0.6)",
         }}
       ></div>
 
-      {/* Embedded Marquee background text behind everything */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 overflow-hidden opacity-30 pointer-events-none select-none">
+      {/* Earthy Vignette */}
+      <div className="absolute inset-0 z-1 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
+
+      {/* Marquee Background Text */}
+      <div className="absolute inset-0 flex items-center justify-center z-5 overflow-hidden opacity-20 pointer-events-none select-none">
         <div ref={marqueeRef} className="flex whitespace-nowrap items-center">
-          {/* Duplicate texts to create continuous scrolling effect */}
-          {[...Array(6)].map((_, i) => (
-             <h1
+          {[...Array(8)].map((_, i) => (
+             <h2
              key={i}
-             className="text-[18vw] md:text-[22vw] font-black uppercase tracking-tight mx-8"
+             className="text-[15vw] md:text-[20vw] font-black uppercase tracking-tighter mx-10"
              style={{
                color: "transparent",
-               WebkitTextStroke: `4px ${slide.accentColor}`,
-               filter: 'drop-shadow(0px 0px 10px rgba(255,255,255,0.2))',
+               WebkitTextStroke: `1.5px rgba(255,255,255,0.4)`,
                fontFamily: "serif",
              }}
            >
-             {slide.title} • {slide.subtitle} • 
-           </h1>
+             {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.bg_text`)}
+           </h2>
           ))}
         </div>
       </div>
 
-      {/* Main Centered Content (Image & Button) */}
+      {/* Headlines Content */}
+      <div className={`relative z-30 w-full max-w-5xl px-6 text-center ${slide.isComingSoon ? 'grow flex flex-col items-center justify-center mt-12 md:mt-0' : 'mb-4 md:mb-4'}`}>
+        <h1 
+          className="text-white text-lg md:text-3xl font-serif italic leading-[1.2] mb-3 drop-shadow-lg max-w-3xl mx-auto"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.headline`)}
+        </h1>
+        <p className="text-white/80 text-[10px] md:text-lg font-medium tracking-wide drop-shadow-md leading-relaxed px-4">
+          {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.subheadline`)}
+        </p>
+
+        {slide.isComingSoon && (
+          <div className="mt-6 space-y-4">
+            <h2 className="text-white text-xl md:text-4xl font-bold drop-shadow-lg">
+              {t(`hero.${slide.key}.h2`)}
+            </h2>
+            <p className="text-white/90 text-sm md:text-xl font-medium max-w-2xl mx-auto italic">
+              {t(`hero.${slide.key}.claim`)}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Main Product Section */}
       <div 
         ref={contentRef} 
-        className="relative z-20 flex flex-col items-center justify-center h-full w-full max-w-5xl px-4 mt-8"
+        className={slide.isComingSoon 
+          ? "absolute inset-0 z-10 flex items-center justify-center pointer-events-none" 
+          : "relative z-20 flex flex-col items-center justify-center flex-grow -mt-4 md:-mt-6"}
       >
         <div
           ref={imageRef}
-          className="relative md:mb-7 w-[400px] h-[550px] md:w-[500px] md:h-[500px] drop-shadow-xl z-30 flex items-center justify-center"
+          className={`relative flex items-center justify-center transition-all duration-700 ${
+            slide.isComingSoon 
+              ? "w-[280px] h-[45vh] md:w-[500px] md:h-[500px] xl:w-[550px] xl:h-[550px] opacity-90 mt-12" 
+              : "w-[240px] h-[44vh] min-h-[280px] max-h-[400px] md:w-[350px] md:h-[350px] xl:w-[350px] xl:h-[350px]"
+          }`}
         >
-          {/* The product image itself */}
+          {/* Product Image */}
           <div
             className="w-full h-full relative"
             style={{
-              filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))",
+              filter: slide.isComingSoon ? "none" : "drop-shadow(0 30px 50px rgba(0,0,0,0.6))",
             }}
           >
             <img
               src={slide.productImg}
-              alt={`${slide.title}`}
-              className={`w-full h-full object-contain transition-transform duration-700 hover:scale-[1.08] ${
-                slide.id === 1 ? 'scale-[1.05] -translate-x-2 md:-translate-x-2' : 'scale-100'
-              }`}
+              alt={slide.title}
+              className={`w-full h-full object-contain transition-transform duration-700 hover:scale-[1.05] ${slide.isComingSoon ? 'blur-lg opacity-80 brightness-90 grayscale-[0.2]' : ''}`}
             />
           </div>
 
-          {/* Floating Ingredients generated around the product */}
-          <div
-            ref={ingredientsRef}
-            className="absolute inset-0 z-[-1] pointer-events-none"
-          >
-            {[...Array(12)].map((_, i) => (
-              <div
-                key={i}
-                className="ingredient-item absolute bg-contain bg-no-repeat bg-center opacity-90"
-                style={{
-                  width: `${Math.random() * 50 + 20}px`,
-                  height: `${Math.random() * 50 + 20}px`,
-                  // Spread wider around the centered image
-                  top: `${Math.random() * 120 - 10}%`,
-                  left: `${Math.random() * 140 - 20}%`,
-                  backgroundColor: slide.id === 1 ? "#e1c699" : "#f0d9a1",
-                  borderRadius: slide.id === 1 ? "50%" : "50% 50% 30% 70%",
-                  boxShadow: "inset -5px -5px 10px rgba(0,0,0,0.2)",
-                  filter: i % 4 === 0 ? "blur(4px)" : i % 3 === 0 ? "blur(2px)" : "none", // Only blur, no darkening
-                  transform: `scale(${i % 2 === 0 ? 0.8 : 1.2})`,
-                  zIndex: i % 2 === 0 ? 40 : -10 // Some in front, some behind
-                }}
-              />
-            ))}
-          </div>
+          {/* Floating Ingredients (Sesame Seeds / Chickpeas) */}
+          {!slide.isComingSoon && (
+            <div
+              ref={ingredientsRef}
+              className="absolute inset-[-50%] z-[-1] pointer-events-none"
+            >
+              {[...Array(slide.id === 1 ? 15 : 20)].map((_, i) => (
+                <div
+                  key={i}
+                  className="ingredient-item absolute opacity-80"
+                  style={{
+                    width: slide.id === 1 ? `${Math.random() * 10 + 6}px` : `${Math.random() * 5 + 2}px`,
+                    height: slide.id === 1 ? `${Math.random() * 10 + 6}px` : `${Math.random() * 8 + 4}px`,
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                    backgroundColor: slide.id === 1 ? "#e1c699" : "#f5e6cc",
+                    borderRadius: slide.id === 1 ? "40% 60% 70% 30% / 50% 40% 60% 50%" : "60% 40% 40% 60% / 80% 80% 30% 30%",
+                    boxShadow: "inset -1px -1px 3px rgba(0,0,0,0.3), 2px 2px 5px rgba(0,0,0,0.2)",
+                    filter: i % 5 === 0 ? "blur(3px)" : i % 3 === 0 ? "blur(1px)" : "none",
+                    transform: `rotate(${Math.random() * 360}deg)`,
+                    zIndex: i % 4 === 0 ? 40 : -1 // Scattered depth
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Action Button Centered Near Bottom (Where Pagination Used to Be) */}
-      <div className="absolute bottom-35 md:bottom-10 left-1/2 transform -translate-x-1/2 z-40">
+      {/* Action Button */}
+      <div className="relative z-40 mb-30 md:mb-16">
         <a href="/products">
           <button
-            className="px-6 py-2.5 md:px-8 md:py-3 rounded-full uppercase tracking-[0.15em] font-semibold text-sm md:text-base transition-all duration-300 hover:scale-[1.05] active:scale-95 whitespace-nowrap"
+            className="px-8 py-3 md:px-10 md:py-3.5 rounded-full uppercase tracking-[0.2em] font-bold text-xs md:text-sm transition-all duration-300 hover:scale-[1.05] hover:brightness-110 active:scale-95 shadow-2xl"
             style={{
-              backgroundColor: slide.bgColor,
-              color: slide.textColor,
-              boxShadow: `0 8px 20px -8px ${slide.bgColor}`,
+              backgroundColor: "#d4b86a",
+              color: "#3e4c2f",
             }}
           >
-            {t("hero.discover")}
+            {slide.isComingSoon ? t(`hero.${slide.key}.button`) || t("hero.discover") : t("hero.discover")}
           </button>
         </a>
       </div>
 
       {/* Navigation Controls */}
-      <div className="absolute z-40 left-4 md:left-10 top-1/2 transform -translate-y-1/2 cursor-pointer">
+      <div className="absolute z-40 left-2 md:left-8 top-1/2 transform -translate-y-1/2">
         <button
           onClick={prevSlide}
-          className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+          className="w-8 h-8 md:w-14 md:h-14 rounded-full border border-white/10 bg-black/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/10 transition-all hover:scale-110"
         >
-          <ChevronLeft size={28} />
+          <ChevronLeft size={20} />
         </button>
       </div>
 
-      <div className="absolute z-40 right-4 md:right-10 top-1/2 transform -translate-y-1/2 cursor-pointer">
+      <div className="absolute z-40 right-2 md:right-8 top-1/2 transform -translate-y-1/2">
         <button
           onClick={nextSlide}
-          className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+          className="w-8 h-8 md:w-14 md:h-14 rounded-full border border-white/10 bg-black/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/10 transition-all hover:scale-110"
         >
-          <ChevronRight size={28} />
+          <ChevronRight size={20} />
         </button>
       </div>
 
       {/* Slide Indicators - Thumbnail Style Fixed Bottom Left */}
-      <div className="fixed bottom-8 md:bottom-12 left-4 md:left-12 flex flex-row gap-3 z-50">
+      <div className="fixed bottom-6 md:bottom-12 left-4 md:left-12 flex flex-row gap-2 md:gap-3 z-50">
         {slides.map((s, index) => (
           <button
             key={index}
             onClick={() => slideTo(index)}
-            className={`relative flex items-center justify-center rounded-xl transition-all duration-300 overflow-hidden ${
+            className={`relative flex items-center justify-center rounded-lg md:rounded-xl transition-all duration-300 overflow-hidden ${
               currentSlide === index
-                ? "bg-white/20 backdrop-blur-md border border-white/50 shadow-xl scale-110 p-1.5"
-                : "bg-black/30 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:scale-105 opacity-60 hover:opacity-100 p-1"
+                ? "bg-white/20 backdrop-blur-md border border-white/50 shadow-xl scale-110 p-1 md:p-1.5"
+                : "bg-black/30 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:scale-105 opacity-60 hover:opacity-100 p-0.5 md:p-1"
             }`}
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden">
               <img 
                 src={s.productImg} 
                 alt={s.title} 
-                className="w-full h-full object-contain p-1 drop-shadow-md"
+                className="w-full h-full object-contain p-0.5 md:p-1 drop-shadow-md"
               />
             </div>
           </button>
         ))}
       </div>
 
-      {/* Slide Description - Fixed Bottom Right */}
-      <div className="fixed bottom-8 md:bottom-12 right-4 md:right-12 z-50 flex items-center justify-end max-w-[200px] md:max-w-[300px] text-right pointer-events-none">
-        <p className="text-white/80 text-xs md:text-sm font-light leading-relaxed drop-shadow-md">
-          {slide.description}
+      {/* Footer Text Overlay */}
+      <div className="absolute bottom-4 right-4 md:bottom-10 md:right-12 z-50 text-right max-w-[150px] md:max-w-md pointer-events-none opacity-60 md:opacity-100">
+        <p className="text-white/80 text-[8px] md:text-sm font-medium tracking-tight leading-relaxed drop-shadow-md">
+          {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.footer`)}
         </p>
       </div>
     </div>

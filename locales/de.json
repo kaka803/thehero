@@ -15,19 +15,44 @@
   },
   "hero": {
     "shop_now": "Jetzt kaufen",
-    "discover": "Mehr erfahren",
-    "hummus_title": "HUMMUS HERO",
-    "hummus_desc": "Cremiger Signature Hummus aus Premium-Kichererbsen.",
-    "tahini_title": "TAHINI HERO",
-    "tahini_desc": "Reines Sesam-Mus. Die nussige Ergänzung für Ihre täglichen Mahlzeiten."
-
+    "discover": "MEHR ERFAHREN",
+    "hummus": {
+      "headline": "Frischester, cremigster Hummus in nur einer Minute.",
+      "subheadline": "Mit Hummus Hero bestimmst du Geschmack, Frische und Intensität selbst.",
+      "footer": "Premium Hummus Basis. Clean Label. Ohne Zusatzstoffe. Ohne Kompromisse.",
+      "bg_text": "HUMMUS HERO"
+    },
+    "tahini": {
+      "headline": "Der perfekte Geschmack beginnt mit echtem Tahini.",
+      "subheadline": "Unser Premium Tahini gibt deinen Basen Tiefe, Cremigkeit und Balance.",
+      "footer": "100 Prozent Sesam. Clean Label. Rein. Hochwertig. Kompromisslos.",
+      "bg_text": "HERO TAHINI"
+    },
+    "fuul": {
+      "headline": "Eine neue Heldin ist im Anflug.",
+      "subheadline": "Fuul Hero kommt.",
+      "h2": "Der Game Changer für perfekten Fuul. Kräftig. Herzhaft. In einer Minute gemixt.",
+      "claim": "100 Prozent Ackerbohnen. Proteinhaltig. Hochwertig. Clean Label.",
+      "button": "Bleib dran",
+      "bg_text": "FUUL HERO",
+      "footer": "Coming Soon"
+    },
+    "baba": {
+      "headline": "Ein neuer Held ist im Anflug.",
+      "subheadline": "Der Baba kommt.",
+      "h2": "Der Game Changer für echten Baba Ganoush. Cremig. Rauchig. In einer Minute gemixt.",
+      "claim": "Ready to Mix. Clean Label. 100 Prozent Aubergine.",
+      "button": "Bleib dran",
+      "bg_text": "BABA HERO",
+      "footer": "Coming Soon"
+    }
   },
   "products": {
-    "collection": "Unsere Kollektion",
-    "discover": "Entdecken Sie",
-    "premium": "Premium",
-    "flavors": "Geschmacksrichtungen",
-    "description": "Erleben Sie den Gipfel der Erfrischung mit unserer sorgfältig zusammengestellte Auswahl an exotischen botanischen Mischungen. Jeder Geschmack ist ein Meisterwerk aus natürlichen Zutaten und anspruchsvollem Geschmack.",
+    "collection": "The Hero Levant Line",
+    "discover": "Wir glauben, dass",
+    "premium": "gutes Essen",
+    "flavors": "frisch sein muss. Und einfach.",
+    "description": "Mit unseren Premium-Basen zauberst du in nur 1 Minute ein ganzes orientalisches Frühstück – genau so, wie du es willst.\n\nFür Familien. Für Genießer. Für alle, die wissen wollen, was sie essen.\n\nFrische beginnt bei dir. Wir liefern die Basis.",
     "loading": "Kollektion wird geladen...",
     "empty": "Momentan sind keine Produkte verfügbar.",
     "learn_more": "Mehr erfahren",

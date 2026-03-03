@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from "@/context/LanguageContext";
 
-const ProductCard = ({ _id, name, description, details, image, color, status, ingredients }) => {
+const ProductCard = ({ _id, name, description, details, image, color, status, ingredients, price }) => {
   const { t } = useLanguage();
   const isComingSoon = status?.toLowerCase().trim() === 'coming-soon';
   const productFeatures = ingredients || [];
@@ -58,6 +58,11 @@ const ProductCard = ({ _id, name, description, details, image, color, status, in
           </h2>
           
           <div className="space-y-4">
+            {!isComingSoon && price && (
+              <div className="inline-block px-4 py-1.5 rounded-xl bg-white/10 border border-white/10">
+                <span className="text-[#d3b673] font-bold text-xl">${Number(price).toFixed(2)}</span>
+              </div>
+            )}
             <p className={`text-lg leading-relaxed font-light ${isComingSoon ? "text-white/20 blur-[3px]" : "text-white/80"}`}>
               {description}
             </p>

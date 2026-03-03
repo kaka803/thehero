@@ -17,7 +17,7 @@ const Products = () => {
             {t("products.discover")} <span className="text-transparent bg-clip-text bg-linear-to-r from-white via-[#d3b673] to-white/40">{t("products.premium")}</span> {t("products.flavors")}
           </h3>
         </div>
-        <p className="text-white/40 text-lg md:text-xl leading-relaxed font-medium">
+        <p className="text-white/40 text-lg md:text-xl leading-relaxed font-medium whitespace-pre-line">
           {t("products.description")}
         </p>
         <div className="flex items-center gap-4">

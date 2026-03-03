@@ -192,7 +192,7 @@ export default function CheckoutPage() {
                                alt="Stamp" 
                                width={40} 
                                height={40} 
-                               className="w-full h-full object-contain filter brightness-0 opacity-80" 
+                               className="w-full h-full object-contain" 
                              />
                              {isReward && (
                                <div className="absolute inset-0 bg-[#d3b673]/10 animate-pulse"></div>
@@ -415,7 +415,7 @@ export default function CheckoutPage() {
                  </div>
               </div>
 
-              <button 
+               <button 
                 type="submit"
                 disabled={isSubmitting}
                 className={`w-full bg-[#d3b673] text-black py-6 rounded-2xl font-bold text-xl uppercase tracking-widest hover:bg-[#c4a55d] transition-all active:scale-[0.98] shadow-2xl shadow-[#d3b673]/20 flex items-center justify-center gap-4 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -487,7 +487,7 @@ export default function CheckoutPage() {
                         <div className="flex justify-between items-end mt-2">
                            <p className="text-white/40 text-xs font-medium">Qty: {item.quantity}</p>
                            <p className="font-bold text-white">
-                             ${(item.quantity * (item.variant === 'tray' ? (item.price || 3.50) * 12 * 0.85 : (item.price || 3.50))).toFixed(2)}
+                             ${(item.quantity * (item.variant === 'tray' ? (item.price) * 12 * 0.85 : (item.price))).toFixed(2)}
                            </p>
                         </div>
                       </div>
@@ -495,7 +495,7 @@ export default function CheckoutPage() {
                   ))}
                 </div>
 
-                <div className="space-y-4 pt-6 border-t border-white/10">
+                 <div className="space-y-4 pt-6 border-t border-white/10">
                   <div className="flex justify-between text-white/60 text-sm font-medium">
                     <span>{t("cart.subtotal")}</span>
                     <span className="font-bold">${cartTotal.toFixed(2)}</span>

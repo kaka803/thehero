@@ -15,19 +15,44 @@
   },
   "hero": {
     "shop_now": "Shop Now",
-    "discover": "Discover More",
-    "hummus_title": "HUMMUS HERO",
-    "hummus_desc": "Experience our Signature Hummus, made from premium chickpeas.",
-    "tahini_title": "TAHINI HERO",
-    "tahini_desc": "Pure sesame puree. The perfect nutty addition to your daily meals."
-
+    "discover": "LEARN MORE",
+    "hummus": {
+      "headline": "Freshest, creamiest hummus in just one minute.",
+      "subheadline": "With Hummus Hero, you determine the taste, freshness, and intensity yourself.",
+      "footer": "Premium Hummus Base. Clean Label. Without Additives. Without Compromises.",
+      "bg_text": "HUMMUS HERO"
+    },
+    "tahini": {
+      "headline": "The perfect taste starts with real tahini.",
+      "subheadline": "Our premium tahini gives your bases depth, creaminess, and balance.",
+      "footer": "100 Percent Sesame. Clean Label. Pure. High Quality. Uncompromising.",
+      "bg_text": "HERO TAHINI"
+    },
+    "fuul": {
+      "headline": "A new heroine is approaching.",
+      "subheadline": "Fuul Hero is coming.",
+      "h2": "The game changer for perfect Fuul. Strong. Hearty. Mixed in one minute.",
+      "claim": "100 percent broad beans. Protein-rich. High quality. Clean label.",
+      "button": "Stay tuned",
+      "bg_text": "FUUL HERO",
+      "footer": "Coming Soon"
+    },
+    "baba": {
+      "headline": "A new hero is approaching.",
+      "subheadline": "The Baba is coming.",
+      "h2": "The game changer for real Baba Ganoush. Creamy. Smoky. Mixed in one minute.",
+      "claim": "Ready to Mix. Clean Label. 100 Percent Eggplant.",
+      "button": "Stay tuned",
+      "bg_text": "BABA HERO",
+      "footer": "Coming Soon"
+    }
   },
   "products": {
-    "collection": "Our Collection",
-    "discover": "Discover",
-    "premium": "Premium",
-    "flavors": "Flavors",
-    "description": "Experience the pinnacle of refreshment with our carefully curated selection of exotic botanical blends. Each flavor is a masterpiece of natural ingredients and sophisticated taste.",
+    "collection": "The Hero Levant Line",
+    "discover": "We believe that",
+    "premium": "good food",
+    "flavors": "must be fresh. And simple.",
+    "description": "With our premium bases, you can whip up a whole oriental breakfast in just 1 minute – exactly the way you want it.\n\nFor families. For connoisseurs. For everyone who wants to know what they're eating.\n\nFreshness starts with you. We deliver the base.",
     "loading": "Loading collection...",
     "empty": "No products available at the moment.",
     "learn_more": "Learn more",

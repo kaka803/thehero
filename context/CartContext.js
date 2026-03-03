@@ -69,8 +69,8 @@ export function CartProvider({ children }) {
 
   const cartTotal = cartItems.reduce((total, item) => {
     const itemPrice = item.variant === 'tray' 
-      ? (item.price || 3.50) * 12 * 0.85 
-      : (item.price || 3.50);
+      ? (item.price) * 12 * 0.85 
+      : (item.price);
     return total + (itemPrice * item.quantity);
   }, 0);
 
