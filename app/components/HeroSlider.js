@@ -229,7 +229,7 @@ const HeroSlider = () => {
       {/* Headlines Content */}
       <div className={`relative z-30 w-full max-w-5xl px-6 text-center ${slide.isComingSoon ? 'grow flex flex-col items-center justify-center mt-12 md:mt-0' : 'mb-4 md:mb-4'}`}>
         <h1 
-          className="text-white text-lg md:text-3xl font-serif italic leading-[1.2] mb-3 drop-shadow-lg max-w-3xl mx-auto"
+          className="text-white text-2xl md:text-3xl font-serif italic leading-[1.2] mb-3 drop-shadow-lg max-w-3xl mx-auto"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.headline`)}
