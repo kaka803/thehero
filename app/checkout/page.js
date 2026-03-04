@@ -72,7 +72,12 @@ export default function CheckoutPage() {
     return () => clearTimeout(timer);
   }, [formData.email, cartTotal]);
 
-  const finalTotal = cartTotal - discountApplied;
+  const subtotalWithTax = cartTotal + cartItems.reduce((acc, item) => {
+    const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+    return acc + (basePrice * (item.taxRate / 100) * item.quantity);
+  }, 0);
+
+  const finalTotal = subtotalWithTax - discountApplied;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,20 +109,31 @@ export default function CheckoutPage() {
     setIsSubmitting(true);
 
     try {
-      const orderData = {
-        email: formData.email,
-        customerInfo: formData,
-        items: cartItems.map(item => ({
+      const itemsWithTax = cartItems.map(item => {
+        const itemPrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+        const taxRate = item.taxRate || 0;
+        const taxAmountValue = (itemPrice * (taxRate / 100)) * item.quantity;
+        return {
           productId: item._id,
           name: item.name,
           quantity: item.quantity,
-          price: item.price,
+          price: itemPrice,
           variant: item.variant,
-          image: item.image
-        })),
-        subtotal: cartTotal,
+          image: item.image,
+          taxAmount: taxAmountValue
+        };
+      });
+
+      const totalTax = itemsWithTax.reduce((acc, item) => acc + (item.taxAmount || 0), 0);
+      const totalToPay = (cartTotal + totalTax) - discountApplied;
+
+      const orderData = {
+        email: formData.email,
+        customerInfo: formData,
+        items: itemsWithTax,
+        subtotal: cartTotal + totalTax, // Subtotal usually includes tax in this context if we are adding it
         discountAmount: discountApplied,
-        total: finalTotal,
+        total: totalToPay,
         isDiscounted: discountApplied > 0,
       };
 
@@ -156,7 +172,7 @@ export default function CheckoutPage() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter">{t("checkout.success.title")}</h1>
-          <p className="text-white/60 mb-12 text-lg">{t("checkout.success.thanks")} <span className="text-white font-bold">#HERO-{orderSuccess._id.slice(-6).toUpperCase()}</span></p>
+          <p className="text-white/60 mb-12 text-lg">{t("checkout.success.thanks")} <span className="text-white font-bold">{orderSuccess.invoiceNumber || `#HERO-${orderSuccess._id.slice(-6).toUpperCase()}`}</span></p>
 
           <div className="w-full bg-black/30 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-8 md:p-12 mb-12 space-y-10 relative overflow-hidden">
              <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3b673]/10 blur-[100px] rounded-full"></div>
@@ -481,13 +497,27 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex-1 space-y-1 py-1">
                         <h3 className="font-bold text-white text-lg leading-none">{item.name}</h3>
-                        <p className="text-[10px] text-[#d3b673] font-bold uppercase tracking-wider">
-                          {item.variant === 'tray' ? t("cart.case") : t("cart.single")}
-                        </p>
+                        <div className="flex justify-between items-center">
+                          <p className="text-[10px] text-[#d3b673] font-bold uppercase tracking-wider">
+                            {item.variant === 'tray' ? t("cart.case") : t("cart.single")}
+                          </p>
+                          {item.taxRate > 0 && (
+                            <span className="text-[10px] text-white/40 font-bold bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
+                              Tax: {item.taxRate}%
+                            </span>
+                          )}
+                        </div>
                         <div className="flex justify-between items-end mt-2">
-                           <p className="text-white/40 text-xs font-medium">Qty: {item.quantity}</p>
+                           <div>
+                              <p className="text-white/40 text-xs font-medium">Qty: {item.quantity}</p>
+                              {item.taxRate > 0 && (
+                                <p className="text-[9px] text-[#d3b673]/60 font-bold uppercase h-3">
+                                  + Tax: ${((item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price) * (item.taxRate / 100) * item.quantity).toFixed(2)}
+                                </p>
+                              )}
+                           </div>
                            <p className="font-bold text-white">
-                             ${(item.quantity * (item.variant === 'tray' ? (item.price) * 12 * 0.85 : (item.price))).toFixed(2)}
+                             ${((item.quantity * (item.variant === 'tray' ? (item.price) * 12 * 0.85 : (item.price))) + ((item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price) * (item.taxRate / 100) * item.quantity)).toFixed(2)}
                            </p>
                         </div>
                       </div>
@@ -512,7 +542,12 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex justify-between text-white/60 text-sm pb-2 font-medium">
                     <span>{t("checkout.taxes")}</span>
-                    <span className="font-bold">$0.00</span>
+                    <span className="font-bold">
+                      ${cartItems.reduce((acc, item) => {
+                        const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+                        return acc + (basePrice * (item.taxRate / 100) * item.quantity);
+                      }, 0).toFixed(2)}
+                    </span>
                   </div>
                   <div className="flex justify-between items-end pt-4 border-t border-white/20">
                     <div>
@@ -520,7 +555,12 @@ export default function CheckoutPage() {
                         <p className="text-[10px] text-white/20 uppercase font-bold tracking-widest">{t("checkout.including_vat")}</p>
                     </div>
                     <div className="text-right">
-                        <p className="text-3xl font-bold text-[#d3b673]">${finalTotal.toFixed(2)}</p>
+                        <p className="text-3xl font-bold text-[#d3b673]">
+                          ${(finalTotal + cartItems.reduce((acc, item) => {
+                            const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+                            return acc + (basePrice * (item.taxRate / 100) * item.quantity);
+                          }, 0)).toFixed(2)}
+                        </p>
                     </div>
                   </div>
                 </div>

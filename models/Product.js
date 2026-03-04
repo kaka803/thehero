@@ -57,6 +57,10 @@ const ProductSchema = new mongoose.Schema({
     enum: [null, "hummus", "tahini"],
     default: null,
   },
+  taxRate: {
+    type: Number,
+    default: 0, // Percentage, e.g., 7 or 19
+  },
 }, {
   timestamps: true,
 });

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard, Package, Settings, LogOut, Menu, X, Bell, ShoppingBag } from "lucide-react";
+import { LayoutDashboard, Package, Settings, LogOut, Menu, X, Bell, ShoppingBag, FileText, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -57,6 +57,8 @@ export default function AdminLayout({ children }) {
   const menuItems = [
     { icon: Package, label: t("admin.sidebar.products"), href: "/admin/products" },
     { icon: ShoppingBag, label: t("admin.sidebar.orders"), href: "/admin/orders" },
+    { icon: FileText, label: "Invoices", href: "/admin/invoices" },
+    { icon: Users, label: "Customers", href: "/admin/customers" },
     { icon: Settings, label: t("admin.sidebar.settings"), href: "/admin/settings" },
   ];
 
@@ -83,16 +85,23 @@ export default function AdminLayout({ children }) {
           </div>
 
           <nav className="flex-1 space-y-2">
-            {menuItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-white/60 hover:text-white transition-all group"
-              >
-                <item.icon size={20} className="group-hover:text-[#d3b673] transition-colors" />
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))}
+            {menuItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
+                    isActive 
+                    ? "bg-[#d3b673]/10 text-[#d3b673] shadow-[inset_0_0_20px_rgba(211,182,115,0.05)] border border-[#d3b673]/20" 
+                    : "hover:bg-white/5 text-white/60 hover:text-white border border-transparent"
+                  }`}
+                >
+                  <item.icon size={20} className={`${isActive ? "text-[#d3b673]" : "text-white/40 group-hover:text-[#d3b673]"} transition-colors`} />
+                  <span className={`font-medium ${isActive ? "text-white" : ""}`}>{item.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           <button 

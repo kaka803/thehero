@@ -17,7 +17,7 @@
     "shop_now": "Jetzt kaufen",
     "discover": "MEHR ERFAHREN",
     "hummus": {
-      "headline": "Frischester, cremigster Hummus in nur einer Minute.",
+      "headline": "Stell dir vor, du machst den frischesten und cremigsten Hummus in nur einer Minute.",
       "subheadline": "Mit Hummus Hero bestimmst du Geschmack, Frische und Intensität selbst.",
       "footer": "Premium Hummus Basis. Clean Label. Ohne Zusatzstoffe. Ohne Kompromisse.",
       "bg_text": "HUMMUS HERO"
@@ -51,8 +51,8 @@
     "collection": "The Hero Levant Line",
     "discover": "Wir glauben, dass",
     "premium": "gutes Essen",
-    "flavors": "frisch sein muss. Und einfach.",
-    "description": "Mit unseren Premium-Basen zauberst du in nur 1 Minute ein ganzes orientalisches Frühstück – genau so, wie du es willst.\n\nFür Familien. Für Genießer. Für alle, die wissen wollen, was sie essen.\n\nFrische beginnt bei dir. Wir liefern die Basis.",
+    "flavors": "frisch sein muss.\nUnd einfach.",
+    "description": "Mit unseren Premium-Basen zauberst du in nur 1 Minute ein ganzes orientalisches Frühstück – genau so, wie du es willst.\n\nFür Familien.\nFür Genießer.\nFür alle, die wissen wollen, was sie essen.\n\nFrische beginnt bei dir.\nWir liefern die Basis.",
     "loading": "Kollektion wird geladen...",
     "empty": "Momentan sind keine Produkte verfügbar.",
     "learn_more": "Mehr erfahren",
@@ -248,7 +248,9 @@
         "total_amount": "Gesamtbetrag",
         "status_label": "Status",
         "order_date": "Bestelldatum",
-        "verified": "Bestell-ID verifiziert"
+        "verified": "Bestell-ID verifiziert",
+        "invoice": "Rechnungsnummer",
+        "manage_status": "Status & Tracking verwalten"
       }
     },
     "products": {

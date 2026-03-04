@@ -13,7 +13,7 @@ const HeroSlider = () => {
       id: 1,
       title: t("hero.hummus_title"),
       subtitle: t("hero.hummus_title"), // Used for the marquee
-      productImg: "/hummus-hero.png",
+      productImg: "/hummous-hero.png",
       bgPattern: "/chickpeas-bg.png",
       ingredientsClass: "chickpea",
       bgColor: "#d4b86a",
@@ -262,7 +262,7 @@ const HeroSlider = () => {
           className={`relative flex items-center justify-center transition-all duration-700 ${
             slide.isComingSoon 
               ? "w-[280px] h-[45vh] md:w-[500px] md:h-[500px] xl:w-[550px] xl:h-[550px] opacity-90 mt-12" 
-              : "w-[240px] h-[44vh] min-h-[280px] max-h-[400px] md:w-[350px] md:h-[350px] xl:w-[350px] xl:h-[350px]"
+              : "w-[300px] h-[44vh] min-h-[280px] max-h-[400px] md:w-[350px] md:h-[350px] xl:w-[350px] xl:h-[350px]"
           }`}
         >
           {/* Product Image */}

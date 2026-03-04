@@ -28,6 +28,10 @@ const OrderSchema = new mongoose.Schema({
       price: Number,
       variant: String,
       image: String,
+      taxAmount: {
+        type: Number,
+        default: 0,
+      }
     }
   ],
   subtotal: {
@@ -50,10 +54,27 @@ const OrderSchema = new mongoose.Schema({
     type: Number, // Sequence number for this specific email
     required: true,
   },
+  invoiceNumber: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
   status: {
     type: String,
     enum: ["pending", "processing", "shipped", "delivered", "cancelled"],
     default: "pending",
+  },
+  trackingNumber: {
+    type: String,
+    default: "",
+  },
+  trackingLink: {
+    type: String,
+    default: "",
+  },
+  carrier: {
+    type: String,
+    default: "DHL",
   }
 }, {
   timestamps: true,
