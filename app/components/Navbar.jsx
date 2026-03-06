@@ -87,20 +87,7 @@ export default function Navbar() {
             {/* Search Results */}
             <div className="mt-12 mb-20">
               {searchQuery.trim() === "" ? (
-                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                  <p className="text-white/20 uppercase tracking-[0.2em] text-xs font-bold text-center">{t("nav.popular_searches")}</p>
-                  <div className="flex flex-wrap gap-4 items-center justify-center">
-                    {["Tropical", "Mango", "Natural", "Low Sugar", "Coconut"].map((tag) => (
-                      <button 
-                        key={tag}
-                        onClick={() => setSearchQuery(tag)}
-                        className="px-8 py-3 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:text-white hover:bg-[#d3b673] hover:border-[#d3b673] transition-all duration-300 font-medium"
-                      >
-                        {tag}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                null
               ) : (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
@@ -176,7 +163,7 @@ export default function Navbar() {
               alt="FoodBrand Logo" 
               width={120} 
               height={40} 
-              className="h-25 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:scale-105"
+              className="h-25 w-auto object-contain  brightness-[1.1] saturate-[1.2] contrast-[1.1] transition-all duration-300 group-hover:scale-105 group-hover:brightness-[1.2] group-hover:drop-shadow-[0_0_15px_#fff]"
               priority
             />
           </Link>

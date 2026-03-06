@@ -234,7 +234,13 @@ const HeroSlider = () => {
         >
           {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.headline`)}
         </h1>
-        <p className="text-white/80 text-[10px] md:text-lg font-medium tracking-wide drop-shadow-md leading-relaxed px-4">
+        <p className={`font-medium tracking-wide drop-shadow-md leading-relaxed px-4 ${
+          slide.isComingSoon 
+            ? 'text-white text-2xl md:text-4xl lg:text-4xl font-serif italic tracking-widest drop-shadow-2xl' 
+            : 'text-white/80 text-[15px] md:text-lg'
+        }`}
+        style={slide.isComingSoon ? { fontFamily: "'Playfair Display', serif" } : {}}
+        >
           {t(`hero.${slide.key || (slide.id === 1 ? 'hummus' : 'tahini')}.subheadline`)}
         </p>
 
@@ -243,7 +249,7 @@ const HeroSlider = () => {
             <h2 className="text-white text-xl md:text-4xl font-bold drop-shadow-lg">
               {t(`hero.${slide.key}.h2`)}
             </h2>
-            <p className="text-white/90 text-sm md:text-xl font-medium max-w-2xl mx-auto italic">
+            <p className="text-white/90 text-md md:text-xl font-medium max-w-2xl mx-auto italic">
               {t(`hero.${slide.key}.claim`)}
             </p>
           </div>
@@ -255,14 +261,14 @@ const HeroSlider = () => {
         ref={contentRef} 
         className={slide.isComingSoon 
           ? "absolute inset-0 z-10 flex items-center justify-center pointer-events-none" 
-          : "relative z-20 flex flex-col items-center justify-center flex-grow -mt-4 md:-mt-6"}
+          : "relative z-20 flex flex-col items-center justify-center flex-grow -mt-15 md:-mt-6"}
       >
         <div
           ref={imageRef}
           className={`relative flex items-center justify-center transition-all duration-700 ${
             slide.isComingSoon 
               ? "w-[280px] h-[45vh] md:w-[500px] md:h-[500px] xl:w-[550px] xl:h-[550px] opacity-90 mt-12" 
-              : "w-[300px] h-[44vh] min-h-[280px] max-h-[400px] md:w-[350px] md:h-[350px] xl:w-[350px] xl:h-[350px]"
+              : "w-[300px] h-[44vh] min-h-[280px] max-h-[400px] md:w-[350px] md:h-[350px] xl:w-[50vw] xl:h-[50vh] 2xl:w-[60vw] 2xl:h-[60vh]"
           }`}
         >
           {/* Product Image */}

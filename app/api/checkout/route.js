@@ -9,7 +9,7 @@ export async function POST(req) {
   try {
     await dbConnect();
     const body = await req.json();
-    const { email, customerInfo, items, subtotal, discountAmount, total, isDiscounted } = body;
+    const { email, customerInfo, items, subtotal, discountAmount, shippingFee, total, isDiscounted } = body;
 
     // 1. Manage User Data
     let user = await User.findOne({ email });
@@ -54,6 +54,7 @@ export async function POST(req) {
       items,
       subtotal,
       discountAmount,
+      shippingFee,
       total,
       isDiscounted,
       orderNumber: currentOrderNumber,

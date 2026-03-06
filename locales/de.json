@@ -306,7 +306,11 @@
       "saving": "Speichern...",
       "success": "Einstellungen erfolgreich gespeichert!",
       "error": "Fehler beim Speichern der Einstellungen.",
-      "something_wrong": "Etwas ist schief gelaufen."
+      "something_wrong": "Etwas ist schief gelaufen.",
+      "shipping_title": "Versandkosten",
+      "shipping_desc": "Legen Sie die Standard-Versandkosten für alle Bestellungen fest.",
+      "shipping_fee_label": "Versandgebühr ($)",
+      "shipping_info": "Diese Gebühr wird beim Checkout automatisch zu jeder Bestellung hinzugefügt."
     }
   },
   "about": {

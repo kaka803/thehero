@@ -306,7 +306,11 @@
       "saving": "Saving...",
       "success": "Settings saved successfully!",
       "error": "Failed to save settings.",
-      "something_wrong": "Something went wrong."
+      "something_wrong": "Something went wrong.",
+      "shipping_title": "Shipping Fee",
+      "shipping_desc": "Set the standard shipping fee for all orders.",
+      "shipping_fee_label": "Shipping Fee ($)",
+      "shipping_info": "This fee will be automatically added to every order at checkout."
     }
   },
   "about": {

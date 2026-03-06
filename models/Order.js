@@ -12,7 +12,6 @@ const OrderSchema = new mongoose.Schema({
     address: String,
     apartment: String,
     city: String,
-    state: String,
     zipCode: String,
     phone: String,
     country: { type: String, default: "United States" }
@@ -45,6 +44,10 @@ const OrderSchema = new mongoose.Schema({
   total: {
     type: Number,
     required: true,
+  },
+  shippingFee: {
+    type: Number,
+    default: 0,
   },
   isDiscounted: {
     type: Boolean,

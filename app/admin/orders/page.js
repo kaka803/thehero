@@ -291,7 +291,9 @@ export default function AdminOrdersPage() {
                          )}
                             <div className="flex justify-between text-xs font-bold">
                                <span className="text-white/40 uppercase tracking-widest">{t("admin.orders.details.shipping")}</span>
-                               <span className="text-[#34d399] tracking-widest uppercase">{t("checkout.free")}</span>
+                               <span className={`tracking-widest uppercase ${selectedOrder.shippingFee === 0 ? 'text-[#34d399]' : 'text-white'}`}>
+                                 {selectedOrder.shippingFee === 0 ? t("checkout.free") : `$${selectedOrder.shippingFee.toFixed(2)}`}
+                               </span>
                             </div>
                             <div className="flex justify-between items-center pt-3 border-t border-white/10">
                                <span className="text-sm font-black uppercase tracking-[0.2em] text-[#d3b673]">{t("admin.orders.details.total_amount")}</span>

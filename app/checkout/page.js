@@ -29,12 +29,28 @@ export default function CheckoutPage() {
     apartment: "",
     city: "",
     country: "Germany",
-    state: "",
     zipCode: "",
     phone: "",
   });
 
   const [discountPercentage, setDiscountPercentage] = useState(20);
+  const [shippingFee, setShippingFee] = useState(0);
+
+  // Fetch shipping fee on mount
+  useEffect(() => {
+    const fetchShippingFee = async () => {
+      try {
+        const res = await fetch("/api/admin/settings?key=shippingFee");
+        const data = await res.json();
+        if (data.success && data.value !== null) {
+          setShippingFee(data.value);
+        }
+      } catch (error) {
+        console.error("Shipping Fee Fetch Error:", error);
+      }
+    };
+    fetchShippingFee();
+  }, []);
 
   // Calculate if this would be a reward order (every 5th)
   useEffect(() => {
@@ -77,7 +93,7 @@ export default function CheckoutPage() {
     return acc + (basePrice * (item.taxRate / 100) * item.quantity);
   }, 0);
 
-  const finalTotal = subtotalWithTax - discountApplied;
+  const finalTotal = subtotalWithTax - discountApplied + shippingFee;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,6 +149,7 @@ export default function CheckoutPage() {
         items: itemsWithTax,
         subtotal: cartTotal + totalTax, // Subtotal usually includes tax in this context if we are adding it
         discountAmount: discountApplied,
+        shippingFee: shippingFee,
         total: totalToPay,
         isDiscounted: discountApplied > 0,
       };
@@ -368,20 +385,12 @@ export default function CheckoutPage() {
                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-[#d3b673] transition-all"
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest ml-1">{t("checkout.city")}</label>
                     <input 
                       type="text" name="city" required value={formData.city} onChange={handleChange}
                       placeholder="New York"
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-[#d3b673] transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest ml-1">{t("checkout.state")}</label>
-                    <input 
-                      type="text" name="state" required value={formData.state} onChange={handleChange}
-                      placeholder="NY"
                       className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-[#d3b673] transition-all"
                     />
                   </div>
@@ -419,7 +428,9 @@ export default function CheckoutPage() {
                          <p className="text-sm text-white/40">{t("checkout.business_days")}</p>
                       </div>
                    </div>
-                   <p className="font-bold text-[#34d399]">{t("checkout.free")}</p>
+                   <p className={`font-bold ${shippingFee === 0 ? 'text-[#34d399]' : 'text-white'}`}>
+                     {shippingFee === 0 ? t("checkout.free") : `$${shippingFee.toFixed(2)}`}
+                   </p>
                 </div>
               </section>
 
@@ -538,7 +549,9 @@ export default function CheckoutPage() {
                   )}
                   <div className="flex justify-between text-white/60 text-sm font-medium">
                     <span>{t("cart.shipping")}</span>
-                    <span className="text-[#34d399] font-bold uppercase tracking-widest text-[10px]">{t("checkout.free")}</span>
+                    <span className={`font-bold ${shippingFee === 0 ? 'text-[#34d399] uppercase tracking-widest text-[10px]' : ''}`}>
+                      {shippingFee === 0 ? t("checkout.free") : `$${shippingFee.toFixed(2)}`}
+                    </span>
                   </div>
                   <div className="flex justify-between text-white/60 text-sm pb-2 font-medium">
                     <span>{t("checkout.taxes")}</span>
@@ -556,10 +569,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="text-right">
                         <p className="text-3xl font-bold text-[#d3b673]">
-                          ${(finalTotal + cartItems.reduce((acc, item) => {
-                            const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
-                            return acc + (basePrice * (item.taxRate / 100) * item.quantity);
-                          }, 0)).toFixed(2)}
+                          ${finalTotal.toFixed(2)}
                         </p>
                     </div>
                   </div>

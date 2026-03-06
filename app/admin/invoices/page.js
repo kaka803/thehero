@@ -194,6 +194,7 @@ export default function InvoicesPage() {
                         <button 
                           onClick={() => {
                             setSelectedOrder(order);
+                            setIsModalOpen(true);
                             setTimeout(downloadPDF, 100);
                           }}
                           className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/40 hover:text-[#d3b673] hover:bg-white/10 transition-all shadow-lg active:scale-95"
@@ -251,7 +252,17 @@ export default function InvoicesPage() {
                     {/* Header */}
                     <div className="flex justify-between items-start pb-12" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
                        <div className="space-y-4">
-                          <Image src="/logo.png" alt="THE HERO" width={120} height={120} className="object-contain" />
+                        <img 
+                          src="/logo.png" 
+                          alt="THE HERO" 
+                          style={{ 
+                            width: '120px', 
+                            height: '120px', 
+                            objectFit: 'contain', 
+                            display: 'block',
+                            marginBottom: '1rem'
+                          }} 
+                        />
                           <div className="space-y-1">
                              <p className="text-xl font-black italic tracking-tighter" style={{ color: '#ffffff' }}>THE HERO GMBH</p>
                              <p className="text-xs leading-relaxed tracking-widest" style={{ color: 'rgba(255, 255, 255, 0.4)' }}>
@@ -337,12 +348,18 @@ export default function InvoicesPage() {
                              <span className="tracking-widest" style={{ color: 'rgba(255, 255, 255, 0.4)' }}>GESAMTSTEUER</span>
                              <span style={{ color: '#ffffff' }}>${selectedOrder.items?.reduce((acc, item) => acc + (item.taxAmount || 0), 0).toFixed(2)}</span>
                           </div>
-                          {selectedOrder.discountAmount > 0 && (
-                             <div className="flex justify-between items-center text-xs font-bold" style={{ color: '#34d399' }}>
-                                <span className="tracking-widest">RABATT</span>
-                                <span>-${selectedOrder.discountAmount.toFixed(2)}</span>
-                             </div>
-                          )}
+                           {selectedOrder.shippingFee > 0 && (
+                              <div className="flex justify-between items-center text-xs font-bold">
+                                 <span className="tracking-widest" style={{ color: 'rgba(255, 255, 255, 0.4)' }}>VERSAND</span>
+                                 <span style={{ color: '#ffffff' }}>${selectedOrder.shippingFee.toFixed(2)}</span>
+                              </div>
+                           )}
+                           {selectedOrder.discountAmount > 0 && (
+                              <div className="flex justify-between items-center text-xs font-bold" style={{ color: '#34d399' }}>
+                                 <span className="tracking-widest">RABATT</span>
+                                 <span>-${selectedOrder.discountAmount.toFixed(2)}</span>
+                              </div>
+                           )}
                           <div className="flex justify-between items-center pt-4" style={{ borderTop: '1px solid rgba(211, 182, 115, 0.3)' }}>
                              <span className="text-sm font-black tracking-[0.2em]" style={{ color: '#d3b673' }}>GESAMT</span>
                              <span className="text-2xl font-black" style={{ color: '#d3b673' }}>${selectedOrder.total?.toFixed(2)}</span>
