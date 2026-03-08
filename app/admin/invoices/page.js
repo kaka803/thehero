@@ -76,7 +76,11 @@ export default function InvoicesPage() {
         onclone: (clonedDoc) => {
           const clonedElement = clonedDoc.querySelector('.invoice-content');
           if (clonedElement) {
-              clonedElement.style.height = 'auto';
+              // Force exact A4 dimensions at standard 96dpi for uniform scaling
+              clonedElement.style.width = '794px';       // A4 width
+              clonedElement.style.minHeight = '1123px';  // A4 height
+              clonedElement.style.height = 'auto'; // allow expansion if content is very long, PDF adds pages
+              
               clonedElement.style.overflow = 'visible';
               clonedElement.style.backgroundColor = '#000000';
               clonedElement.style.color = '#ffffff';
@@ -312,25 +316,25 @@ export default function InvoicesPage() {
                     <div className="space-y-4">
                        <table className="w-full border-collapse">
                           <thead>
-                             <tr className="text-[10px] font-black tracking-widest" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)', color: '#d3b673' }}>
-                                <th className="py-4 text-left">BESCHREIBUNG</th>
-                                <th className="py-4 text-center">MENGE</th>
-                                <th className="py-4 text-right">PREIS</th>
-                                <th className="py-4 text-right px-2">STEUER</th>
-                                <th className="py-4 text-right h-full pr-4">GESAMT</th>
+                             <tr className="text-[10px] font-black tracking-widest" style={{ color: '#d3b673' }}>
+                                <th className="py-4 text-left" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)' }}>BESCHREIBUNG</th>
+                                <th className="py-4 text-center" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)' }}>MENGE</th>
+                                <th className="py-4 text-right" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)' }}>PREIS</th>
+                                <th className="py-4 text-right px-2" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)' }}>STEUER</th>
+                                <th className="py-4 text-right h-full pr-4" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)' }}>GESAMT</th>
                              </tr>
                           </thead>
                           <tbody style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                              {selectedOrder.items?.map((item, idx) => (
-                                <tr key={idx} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                                   <td className="py-6">
+                                <tr key={idx}>
+                                   <td className="py-6" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
                                       <p className="text-sm font-black tracking-tight" style={{ color: '#ffffff' }}>{item.name?.toUpperCase()}</p>
                                       <p className="text-[10px] font-bold" style={{ color: 'rgba(255, 255, 255, 0.4)' }}>{item.variant === 'tray' ? 'KARTON (12 EINHEITEN)' : 'EINZELNE EINHEIT'}</p>
                                    </td>
-                                   <td className="py-6 text-center text-sm font-bold">{item.quantity}</td>
-                                   <td className="py-6 text-right text-sm font-bold">${item.price?.toFixed(2)}</td>
-                                   <td className="py-6 text-right text-sm font-bold px-2" style={{ color: '#d3b673' }}>${item.taxAmount?.toFixed(2)}</td>
-                                   <td className="py-6 text-right text-sm font-black pr-4" style={{ color: '#d3b673' }}>${(item.quantity * item.price + (item.taxAmount || 0)).toFixed(2)}</td>
+                                   <td className="py-6 text-center text-sm font-bold" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>{item.quantity}</td>
+                                   <td className="py-6 text-right text-sm font-bold" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>${item.price?.toFixed(2)}</td>
+                                   <td className="py-6 text-right text-sm font-bold px-2" style={{ color: '#d3b673', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>${item.taxAmount?.toFixed(2)}</td>
+                                   <td className="py-6 text-right text-sm font-black pr-4" style={{ color: '#d3b673', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>${(item.quantity * item.price + (item.taxAmount || 0)).toFixed(2)}</td>
                                 </tr>
                              ))}
                           </tbody>

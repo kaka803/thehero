@@ -20,10 +20,25 @@ export default function CartDrawer() {
   const router = useRouter();
   const drawerRef = useRef(null);
   const overlayRef = useRef(null);
-
-  // Get products with special labels for cross-sell logic
-  const tahiniInCart = cartItems.find(item => item.specialLabel === "tahini");
-  const hasHummusInCart = cartItems.some(item => item.specialLabel === "hummus");
+  
+  // Robust hummus/tahini detection
+  const tahiniInCart = cartItems.find(item => {
+    // It's Tahini if it has the label, OR if the name has tahini/sesam AND it's NOT a hummus product
+    if (item.specialLabel === "tahini") return true;
+    
+    const nameStr = item.name?.toLowerCase() || "";
+    const hasTahiniKeywords = nameStr.includes("tahini") || nameStr.includes("tahin") || nameStr.includes("sesam");
+    const isActuallyHummus = item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
+    
+    return hasTahiniKeywords && !isActuallyHummus;
+  });
+  
+  const hasHummusInCart = cartItems.some(item => 
+    item.specialLabel === "hummus" || 
+    item.name?.toLowerCase().includes("hummus") || 
+    item.name?.toLowerCase().includes("humous") ||
+    item.name?.toLowerCase().includes("levant")
+  );
 
   useEffect(() => {
     if (!isCartOpen) {
@@ -35,7 +50,31 @@ export default function CartDrawer() {
   }, [isCartOpen]);
 
   const handleCheckout = () => {
-    if (hasHummusInCart && !tahiniInCart && !showCrossSell) {
+    let tahiniProductAvailable = products?.find((p) => 
+      p.specialLabel === "tahini" || 
+      p.name?.toLowerCase().includes("tahin") ||
+      p.name?.toLowerCase().includes("sesam")
+    );
+
+    // Fallback if no exact Tahini is found
+    if (!tahiniProductAvailable && products && products.length > 0) {
+      tahiniProductAvailable = products.find(p => 
+        p.specialLabel !== 'hummus' && 
+        !p.name?.toLowerCase().includes('hummus') && 
+        !p.name?.toLowerCase().includes('humous')
+      );
+    }
+
+    console.log("Cart Checkout Debug:", {
+      hasHummusInCart,
+      tahiniInCart: !!tahiniInCart,
+      tahiniProductAvailable: !!tahiniProductAvailable,
+      showCrossSell,
+      cartItemNames: cartItems.map(i => i.name)
+    });
+    
+    if (hasHummusInCart && !tahiniInCart && tahiniProductAvailable && !showCrossSell) {
+      console.log("Setting showCrossSell to true");
       setShowCrossSell(true);
       return;
     }

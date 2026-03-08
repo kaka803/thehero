@@ -20,13 +20,15 @@ export default function ProductForm({ product, onClose, onSuccess }) {
     specialLabel: null,
     taxRate: 0,
     nutrition: {
-      calories: "",
+      energyKcal: "",
+      energyKj: "",
       fat: "",
-      carbs: "",
+      saturatedFat: "",
+      carbohydrates: "",
       sugar: "",
       protein: "",
       salt: "",
-      extract: "",
+      fiber: "",
     },
   });
 
@@ -108,7 +110,7 @@ export default function ProductForm({ product, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-[#0f0e0a]/80 backdrop-blur-xl transition-opacity animate-in fade-in" 
@@ -116,7 +118,7 @@ export default function ProductForm({ product, onClose, onSuccess }) {
       ></div>
 
       {/* Form Container */}
-      <div className="relative w-full max-w-4xl bg-white/5 border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-4xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
         
         {/* Header */}
         <div className="flex items-center justify-between p-8 border-b border-white/10 bg-white/5">
@@ -289,13 +291,15 @@ export default function ProductForm({ product, onClose, onSuccess }) {
             <h3 className="text-lg font-bold">{t("admin.products.form.nutrition")}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { label: 'Calories', name: 'nutrition.calories' },
+                { label: 'Energy (kcal)', name: 'nutrition.energyKcal' },
+                { label: 'Energy (kJ)', name: 'nutrition.energyKj' },
                 { label: 'Fat', name: 'nutrition.fat' },
-                { label: 'Carbs', name: 'nutrition.carbs' },
+                { label: 'Saturated Fat', name: 'nutrition.saturatedFat' },
+                { label: 'Carbohydrates', name: 'nutrition.carbohydrates' },
                 { label: 'Sugar', name: 'nutrition.sugar' },
                 { label: 'Protein', name: 'nutrition.protein' },
                 { label: 'Salt', name: 'nutrition.salt' },
-                { label: 'Extract', name: 'nutrition.extract' },
+                { label: 'Fiber', name: 'nutrition.fiber' },
               ].map((field) => (
                 <div key={field.name} className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{field.label}</label>

@@ -8,6 +8,7 @@ export default function AdminSettingsPage() {
   const { t } = useLanguage();
   const [loyaltyDiscount, setLoyaltyDiscount] = useState(20);
   const [shippingFee, setShippingFee] = useState(0);
+  const [freeShippingThreshold, setFreeShippingThreshold] = useState(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState(null);
@@ -18,19 +19,24 @@ export default function AdminSettingsPage() {
 
   const fetchSettings = async () => {
     try {
-      const [loyaltyRes, shippingRes] = await Promise.all([
+      const [loyaltyRes, shippingRes, thresholdRes] = await Promise.all([
         fetch("/api/admin/settings?key=loyaltyDiscount"),
-        fetch("/api/admin/settings?key=shippingFee")
+        fetch("/api/admin/settings?key=shippingFee"),
+        fetch("/api/admin/settings?key=freeShippingThreshold")
       ]);
       
       const loyaltyData = await loyaltyRes.json();
       const shippingData = await shippingRes.json();
+      const thresholdData = await thresholdRes.json();
 
       if (loyaltyData.success && loyaltyData.value !== null) {
         setLoyaltyDiscount(loyaltyData.value);
       }
       if (shippingData.success && shippingData.value !== null) {
         setShippingFee(shippingData.value);
+      }
+      if (thresholdData.success && thresholdData.value !== null) {
+        setFreeShippingThreshold(thresholdData.value);
       }
     } catch (error) {
       console.error("Fetch Error:", error);
@@ -45,7 +51,7 @@ export default function AdminSettingsPage() {
     setMessage(null);
 
     try {
-      const [loyaltyRes, shippingRes] = await Promise.all([
+      const [loyaltyRes, shippingRes, thresholdRes] = await Promise.all([
         fetch("/api/admin/settings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -55,13 +61,19 @@ export default function AdminSettingsPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ key: "shippingFee", value: Number(shippingFee) }),
+        }),
+        fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key: "freeShippingThreshold", value: Number(freeShippingThreshold) }),
         })
       ]);
 
       const loyaltyData = await loyaltyRes.json();
       const shippingData = await shippingRes.json();
+      const thresholdData = await thresholdRes.json();
 
-      if (loyaltyData.success && shippingData.success) {
+      if (loyaltyData.success && shippingData.success && thresholdData.success) {
         setMessage({ type: "success", text: t("admin.settings.success") });
       } else {
         setMessage({ type: "error", text: t("admin.settings.error") });
@@ -146,25 +158,44 @@ export default function AdminSettingsPage() {
               </div>
 
               <div className="flex-1 space-y-6">
-                <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-[0.2em] text-white/40 ml-1">{t("admin.settings.shipping_fee_label")}</label>
-                  <div className="relative">
-                    <input 
-                      type="number" 
-                      step="0.01"
-                      min="0"
-                      value={shippingFee}
-                      onChange={(e) => setShippingFee(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-8 text-2xl font-black text-[#d3b673] focus:outline-none focus:border-[#d3b673] transition-all"
-                    />
-                    <div className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl font-black text-white/20 select-none">$</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Base Shipping Fee */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-white/40 ml-1">{t("admin.settings.shipping_fee_label")}</label>
+                    <div className="relative">
+                      <input 
+                        type="number" 
+                        step="0.01"
+                        min="0"
+                        value={shippingFee}
+                        onChange={(e) => setShippingFee(e.target.value)}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-8 text-2xl font-black text-[#d3b673] focus:outline-none focus:border-[#d3b673] transition-all"
+                      />
+                      <div className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl font-black text-white/20 select-none">$</div>
+                    </div>
+                  </div>
+
+                  {/* Free Shipping Threshold */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-[#34d399]/70 ml-1">Free Shipping From ($)</label>
+                    <div className="relative">
+                      <input 
+                        type="number" 
+                        step="0.01"
+                        min="0"
+                        value={freeShippingThreshold}
+                        onChange={(e) => setFreeShippingThreshold(e.target.value)}
+                        className="w-full bg-[#34d399]/5 border border-[#34d399]/20 rounded-2xl py-5 px-8 text-2xl font-black text-[#34d399] focus:outline-none focus:border-[#34d399] transition-all"
+                      />
+                      <div className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl font-black text-[#34d399]/30 select-none">$</div>
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex gap-4">
                   <Info className="text-[#d3b673] shrink-0" size={20} />
                   <p className="text-xs text-white/60 leading-relaxed">
-                    {t("admin.settings.shipping_info")}
+                    Set the base shipping fee. If a customer's cart subtotal meets or exceeds the <span className="text-[#34d399] font-bold">Free Shipping Threshold</span>, their shipping fee will be automatically set to <span className="text-[#34d399] font-bold">Free ($0.00)</span>.
                   </p>
                 </div>
               </div>

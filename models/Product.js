@@ -37,13 +37,15 @@ const ProductSchema = new mongoose.Schema({
     default: "live",
   },
   nutrition: {
-    calories: String,
+    energyKcal: String,
+    energyKj: String,
     fat: String,
-    carbs: String,
+    saturatedFat: String,
+    carbohydrates: String,
     sugar: String,
     protein: String,
     salt: String,
-    extract: String,
+    fiber: String,
   },
   ingredients: {
     type: [String],

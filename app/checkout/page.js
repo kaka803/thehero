@@ -34,16 +34,25 @@ export default function CheckoutPage() {
   });
 
   const [discountPercentage, setDiscountPercentage] = useState(20);
-  const [shippingFee, setShippingFee] = useState(0);
+  const [baseShippingFee, setBaseShippingFee] = useState(0);
+  const [freeShippingThreshold, setFreeShippingThreshold] = useState(null);
 
-  // Fetch shipping fee on mount
+  // Fetch shipping fee and threshold on mount
   useEffect(() => {
     const fetchShippingFee = async () => {
       try {
-        const res = await fetch("/api/admin/settings?key=shippingFee");
-        const data = await res.json();
-        if (data.success && data.value !== null) {
-          setShippingFee(data.value);
+        const [feeRes, thresholdRes] = await Promise.all([
+          fetch("/api/admin/settings?key=shippingFee"),
+          fetch("/api/admin/settings?key=freeShippingThreshold")
+        ]);
+        const feeData = await feeRes.json();
+        const thresholdData = await thresholdRes.json();
+        
+        if (feeData.success && feeData.value !== null) {
+          setBaseShippingFee(feeData.value);
+        }
+        if (thresholdData.success && thresholdData.value !== null) {
+          setFreeShippingThreshold(thresholdData.value);
         }
       } catch (error) {
         console.error("Shipping Fee Fetch Error:", error);
@@ -92,6 +101,11 @@ export default function CheckoutPage() {
     const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
     return acc + (basePrice * (item.taxRate / 100) * item.quantity);
   }, 0);
+
+  // Calculate dynamic shipping fee
+  const shippingFee = (freeShippingThreshold !== null && freeShippingThreshold > 0 && cartTotal >= freeShippingThreshold) 
+    ? 0 
+    : baseShippingFee;
 
   const finalTotal = subtotalWithTax - discountApplied + shippingFee;
 

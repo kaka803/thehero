@@ -59,7 +59,7 @@
     "coming_soon": "Demnächst"
   },
   "footer": {
-    "about": "Wir kreieren Premium-Aromen mit den feinsten natürlichen Zutaten. Erleben Sie den Geschmack von Exzellenz in jeder Flasche.",
+    "about": "Die Hero Levant Line bringt frische orientalische Küche in deine Küche.\n\nMit unseren Premium-Basen bereitest du Hummus und andere Klassiker\nin nur einer Minute selbst zu.\n\nFrisch.\nNatürlich.\nEinfach.",
     "quick_links": "Schnelllinks",
     "legal": "Rechtliches",
     "newsletter": "Newsletter",
@@ -167,14 +167,11 @@
   "product_detail": {
     "back": "Zurück zur Übersicht",
     "per_packet": "Pro Paket",
-    "vitamin_c": "Vitamin C",
-    "antioxidants": "Antioxidantien",
-    "fruit_extract": "Fruchtextrakt",
     "select_option": "Kaufoption wählen",
     "pack_size": "Packungsgröße",
     "single_packet": "Einzelpaket",
     "tray_packet": "Kiste (12 Pakete)",
-    "unit_size": "0,5L Einheit",
+    "unit_size": "Packungseinheit",
     "save_bulk": "15% sparen beim Großkauf",
     "quantity": "Menge",
     "max_units": "Max. 99 Einheiten",
@@ -184,16 +181,18 @@
     "coming_soon": "Demnächst",
     "shipping_info": "Kostenloser Versand ab 30€ | Lieferzeit 2 - 3 Werktage",
     "ingredients": "Zutaten",
-    "tea_drink_desc": "Teegetränk aus Schwarztee-Extrakt mit {name}-Geschmack",
-    "nutrition_title": "Nährwerte pro 100ml",
+    "product_desc_prefix": "Basis für {name}",
+    "nutrition_title": "Nährwerte pro 100g",
     "nutrition_info": "Nährwertinformationen",
-    "calories": "Kalorien (kcal)",
+    "energy_kcal": "Energie (kcal)",
+    "energy_kj": "Energie (kJ)",
     "fat": "Fett",
+    "saturated_fat": "davon gesättigte Fettsäuren",
     "carbohydrates": "Kohlenhydrate",
-    "sugar": "Zucker",
+    "sugar": "davon Zucker",
     "protein": "Eiweiß",
     "salt": "Salz",
-    "tea_extract": "Tee-Extrakt"
+    "fiber": "Ballaststoffe"
   },
   "admin": {
     "sidebar": {
@@ -249,8 +248,31 @@
         "status_label": "Status",
         "order_date": "Bestelldatum",
         "verified": "Bestell-ID verifiziert",
+        "update_status": "Status aktualisieren",
         "invoice": "Rechnungsnummer",
         "manage_status": "Status & Tracking verwalten"
+      }
+    },
+    "subscribers": {
+      "title": "Newsletter-Abonnenten",
+      "subtitle": "Verwalten Sie Ihr Newsletter-Publikum",
+      "search": "E-Mails durchsuchen...",
+      "refresh": "Liste aktualisieren",
+      "loading": "Publikum wird geladen...",
+      "error_load": "Abonnenten konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
+      "try_again": "Erneut versuchen",
+      "no_results": "Keine Ergebnisse gefunden",
+      "no_results_desc": "Keine Abonnenten passend zu Ihrer Suche.",
+      "empty": "Noch keine Abonnenten",
+      "empty_desc": "Wenn Kunden sich im Footer für den Newsletter anmelden, erscheinen sie hier.",
+      "table": {
+        "email": "E-Mail",
+        "date": "Abonniert am",
+        "status": "Status"
+      },
+      "status": {
+        "active": "Aktiv",
+        "unsubscribed": "Abgemeldet"
       }
     },
     "products": {

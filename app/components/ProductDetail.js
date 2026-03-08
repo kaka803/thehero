@@ -7,6 +7,7 @@ import { ArrowLeft, Check, Minus, Plus, HelpCircle, ChevronDown, ChevronUp } fro
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from "@/context/LanguageContext";
+import { useProducts } from "@/context/ProductContext";
 import CrossSellModal from './CrossSellModal';
 import Script from "next/script";
 
@@ -15,12 +16,20 @@ const ProductDetail = ({ product }) => {
   const [variant, setVariant] = useState('single');
   const [quantity, setQuantity] = useState(1);
   const [showCrossSell, setShowCrossSell] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null); // 'cart' or 'checkout'
   const [openFaq, setOpenFaq] = useState(null);
   const { addToCart, cartItems } = useCart();
+  const { products } = useProducts();
   const router = useRouter();
 
   // Determine FAQ category based on product name
   const productName = product.name.toLowerCase();
+  
+  // Robust hummus check
+  const isHummusProduct = product.specialLabel === 'hummus' || 
+                          productName.includes('hummus') || 
+                          productName.includes('humous');
+
   const faqCategory = productName.includes('hummus') ? 'hummus' : 
                       productName.includes('baba') ? 'baba' : 
                       productName.includes('foul') ? 'foul' : null;
@@ -69,16 +78,53 @@ const ProductDetail = ({ product }) => {
   };
 
   const handleBuyNow = () => {
-    const isHummus = product.specialLabel === 'hummus';
-    const hasTahiniInCart = cartItems.some(item => item.specialLabel === 'tahini');
+    const hasTahiniInCart = cartItems.some(item => {
+      // It's Tahini if it has the label, OR if the name has tahini/sesam AND it's NOT a hummus product
+      if (item.specialLabel === 'tahini') return true;
+      
+      const nameStr = item.name?.toLowerCase() || "";
+      const hasTahiniKeywords = nameStr.includes("tahini") || nameStr.includes("tahin") || nameStr.includes("sesam");
+      const isActuallyHummus = item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
+      
+      return hasTahiniKeywords && !isActuallyHummus;
+    });
 
-    if (isHummus && !hasTahiniInCart && !showCrossSell) {
+    let tahiniProduct = products?.find((p) => 
+      p.specialLabel === "tahini" || 
+      p.name?.toLowerCase().includes("tahin") ||
+      p.name?.toLowerCase().includes("sesam")
+    );
+    
+    // Fallback if no exact Tahini is found, find any non-hummus product to ensure popup works
+    if (!tahiniProduct && products && products.length > 0) {
+      tahiniProduct = products.find(p => 
+        p.specialLabel !== 'hummus' && 
+        !p.name?.toLowerCase().includes('hummus') && 
+        !p.name?.toLowerCase().includes('humous')
+      );
+    }
+
+    console.log("Buy Now Debug:", { isHummusProduct, hasTahiniInCart, tahiniProductFound: !!tahiniProduct });
+
+    if (isHummusProduct && !hasTahiniInCart && tahiniProduct) {
+      setPendingAction('checkout');
       setShowCrossSell(true);
       return;
     }
 
     addToCart(product, quantity, variant, false);
     router.push('/checkout');
+  };
+
+  const handleCrossSellProceed = () => {
+    setShowCrossSell(false);
+    if (pendingAction === 'checkout') {
+      addToCart(product, quantity, variant, false);
+      router.push('/checkout');
+    } else {
+      addToCart(product, quantity, variant);
+    }
+    setPendingAction(null);
   };
 
   if (!product) return null;
@@ -133,21 +179,11 @@ const ProductDetail = ({ product }) => {
             </p>
           </div>
 
-          {/* Quick Stats Badges */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center backdrop-blur-md">
-              <span className="text-white font-bold" style={{ color: product.color }}>Vitamin C</span>
-              <span className="text-white/40 text-xs">Antioxidants</span>
-            </div>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center backdrop-blur-md">
-              <span className="text-white font-bold" style={{ color: product.color }}>Fruit Extract</span>
-              <span className="text-white/40 text-xs text-nowrap">{product.nutrition?.extract || "1.2g/100ml"}</span>
-            </div>
-          </div>
+          {/* Quick Stats Badges removed per user request */}
 
           {/* Order Section */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-white">Select Purchase Option</h3>
+            <h3 className="text-xl font-bold text-white">{t("product_detail.select_option")}</h3>
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 space-y-8 backdrop-blur-md relative overflow-hidden">
                {/* Background Glow */}
                <div 
@@ -156,7 +192,7 @@ const ProductDetail = ({ product }) => {
               ></div>
 
               <div className="space-y-4 relative z-10">
-                <p className="text-xs font-bold text-white/40 uppercase tracking-widest">Pack Size</p>
+                <p className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("product_detail.pack_size")}</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Single Variant */}
                   <button 
@@ -169,8 +205,8 @@ const ProductDetail = ({ product }) => {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <p className="font-bold text-white">Single Packet</p>
-                        <p className="text-sm text-white/60">0.5L Unit</p>
+                        <p className="font-bold text-white">{t("product_detail.single_packet")}</p>
+                        <p className="text-sm text-white/60">{t("product_detail.unit_size")}</p>
                       </div>
                       {variant === 'single' && (
                           <div className="w-5 h-5 bg-[#d3b673] rounded-full flex items-center justify-center">
@@ -191,8 +227,8 @@ const ProductDetail = ({ product }) => {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <p className="font-bold text-white">Case (12 Packets)</p>
-                        <p className="text-sm text-white/60">Save 15% on bulk</p>
+                        <p className="font-bold text-white">{t("product_detail.tray_packet")}</p>
+                        <p className="text-sm text-white/60">{t("product_detail.save_bulk")}</p>
                       </div>
                       {variant === 'tray' && (
                           <div className="w-5 h-5 bg-[#d3b673] rounded-full flex items-center justify-center">
@@ -207,8 +243,8 @@ const ProductDetail = ({ product }) => {
               {/* Quantity Selector */}
               <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-bold text-white/40 uppercase tracking-widest">Quantity</p>
-                  <p className="text-xs text-white/60">Max 99 units</p>
+                  <p className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("product_detail.quantity")}</p>
+                  <p className="text-xs text-white/60">{t("product_detail.max_units")}</p>
                 </div>
                 <div className="flex items-center gap-4 bg-black/20 border border-white/10 rounded-2xl p-2 w-fit">
                   <button 
@@ -229,7 +265,7 @@ const ProductDetail = ({ product }) => {
 
               {/* Total Price Display */}
               <div className="flex justify-between items-center py-4 border-t border-white/10 relative z-10">
-                <p className="text-sm text-white/40 uppercase tracking-widest font-bold">Total Amount</p>
+                <p className="text-sm text-white/40 uppercase tracking-widest font-bold">{t("product_detail.total_amount")}</p>
                 <p className="text-2xl font-bold text-white">
                     ${(quantity * (variant === 'tray' ? (product.price) * 12 * 0.85 : (product.price))).toFixed(2)}
                 </p>
@@ -242,25 +278,25 @@ const ProductDetail = ({ product }) => {
                       onClick={handleAddToCart}
                       className="py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold tracking-wide transition-all active:scale-95"
                     >
-                      Add to Cart
+                      {t("product_detail.add_to_cart")}
                     </button>
                     <button 
                       onClick={handleBuyNow}
                       className="py-4 rounded-xl bg-[#d3b673] hover:bg-[#c4a55d] text-black font-bold tracking-wide transition-all active:scale-95 shadow-lg shadow-[#d3b673]/20"
                     >
-                      Buy Now
+                      {t("product_detail.buy_now")}
                     </button>
                   </div>
                 ) : (
                   <button disabled className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white/40 font-bold tracking-wide opacity-50 cursor-not-allowed">
-                    Coming Soon
+                    {t("product_detail.coming_soon")}
                   </button>
                 )}
               </div>
 
               <div className="flex items-center justify-center gap-2 text-white/40 text-[11px] relative z-10">
                   <span className="w-1 h-1 rounded-full bg-white/40"></span>
-                  Free shipping on orders over €30 | Delivery time 2 - 3 business days
+                  {t("product_detail.shipping_info")}
               </div>
             </div>
           </div>
@@ -269,14 +305,14 @@ const ProductDetail = ({ product }) => {
 
       {/* Ingredients Section */}
       <div className="mt-24 space-y-6">
-          <h3 className="text-2xl font-bold text-white">Ingredients</h3>
+          <h3 className="text-2xl font-bold text-white">{t("product_detail.ingredients")}</h3>
           <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md">
               <div className="bg-white/5 p-5 border-b border-white/10">
-                  <p className="font-bold text-white/80">Tea drink made from black tea extract with {product.name.toLowerCase()} flavor</p>
+                  <p className="font-bold text-white/80">{t("product_detail.product_desc_prefix", { name: product.name })}</p>
               </div>
               <div className="p-8">
                   <p className="text-white/60 leading-relaxed max-w-3xl">
-                      {product.details || "Water, sugar, citric acid, black tea extract, natural flavoring, ascorbic acid (antioxidant), trisodium citrate (acidity regulator)."}
+                      {product.details || "—"}
                   </p>
               </div>
           </div>
@@ -284,25 +320,27 @@ const ProductDetail = ({ product }) => {
 
       {/* Nutrition Section */}
       <div className="mt-16 space-y-6">
-          <h3 className="text-2xl font-bold text-white">Nutritional values per 100ml</h3>
+          <h3 className="text-2xl font-bold text-white">{t("product_detail.nutrition_title")}</h3>
           <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md">
               <div className="bg-white/5 p-5 border-b border-white/10 text-center">
-                  <p className="font-bold text-white/80">Nutritional information</p>
+                  <p className="font-bold text-white/80">{t("product_detail.nutrition_info")}</p>
               </div>
               <div className="p-8">
-                  <div className="grid grid-cols-4 md:grid-cols-7 gap-4 text-center">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-6 text-center">
                       {[
-                          { label: 'Calories (kcal)', value: product.nutrition?.calories || '29' },
-                          { label: 'Fat', value: product.nutrition?.fat || '0 g' },
-                          { label: 'carbohydrates', value: product.nutrition?.carbs || '7.1 g' },
-                          { label: 'Sugar', value: product.nutrition?.sugar || '7.1 g' },
-                          { label: 'protein', value: product.nutrition?.protein || '0 g' },
-                          { label: 'Salt', value: product.nutrition?.salt || '0.023 g' },
-                          { label: 'Tea extract', value: product.nutrition?.extract || '1.2 g/l' },
+                          { label: t('product_detail.energy_kcal'), value: product.nutrition?.energyKcal || '—' },
+                          { label: t('product_detail.energy_kj'), value: product.nutrition?.energyKj || '—' },
+                          { label: t('product_detail.fat'), value: product.nutrition?.fat || '—' },
+                          { label: t('product_detail.saturated_fat'), value: product.nutrition?.saturatedFat || '—' },
+                          { label: t('product_detail.carbohydrates'), value: product.nutrition?.carbohydrates || '—' },
+                          { label: t('product_detail.sugar'), value: product.nutrition?.sugar || '—' },
+                          { label: t('product_detail.protein'), value: product.nutrition?.protein || '—' },
+                          { label: t('product_detail.salt'), value: product.nutrition?.salt || '—' },
+                          { label: t('product_detail.fiber'), value: product.nutrition?.fiber || '—' },
                       ].map((item, idx) => (
                           <div key={idx} className="space-y-1">
-                              <p className="text-white font-bold text-sm">{item.value}</p>
-                              <p className="text-white/40 text-[10px] uppercase leading-tight">{item.label}</p>
+                              <p className="text-white font-bold text-sm tracking-tight">{item.value}</p>
+                              <p className="text-white/40 text-[9px] uppercase leading-tight font-medium">{item.label}</p>
                           </div>
                       ))}
                   </div>
@@ -346,12 +384,11 @@ const ProductDetail = ({ product }) => {
 
       <CrossSellModal 
         isOpen={showCrossSell} 
-        onClose={() => setShowCrossSell(false)} 
-        onProceed={() => {
+        onClose={() => {
           setShowCrossSell(false);
-          addToCart(product, quantity, variant, false);
-          router.push('/checkout');
-        }}
+          setPendingAction(null);
+        }} 
+        onProceed={handleCrossSellProceed}
       />
 
       {/* Structured Data Scripts */}

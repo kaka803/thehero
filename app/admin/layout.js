@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard, Package, Settings, LogOut, Menu, X, Bell, ShoppingBag, FileText, Users } from "lucide-react";
+import { LayoutDashboard, Package, Settings, LogOut, Menu, X, Bell, ShoppingBag, FileText, Users, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -59,6 +59,7 @@ export default function AdminLayout({ children }) {
     { icon: ShoppingBag, label: t("admin.sidebar.orders"), href: "/admin/orders" },
     { icon: FileText, label: "Invoices", href: "/admin/invoices" },
     { icon: Users, label: "Customers", href: "/admin/customers" },
+    { icon: Mail, label: "Subscribers", href: "/admin/subscribers" },
     { icon: Settings, label: t("admin.sidebar.settings"), href: "/admin/settings" },
   ];
 

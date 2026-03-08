@@ -15,7 +15,29 @@ export default function CrossSellModal({ isOpen, onClose, onProceed }) {
   const { t } = useLanguage();
   const router = useRouter();
 
-  const tahiniProduct = products?.find((p) => p.specialLabel === "tahini");
+  let tahiniProduct = products?.find((p) => 
+    p.specialLabel === "tahini" || 
+    p.name?.toLowerCase().includes("tahin") ||
+    p.name?.toLowerCase().includes("sesam")
+  );
+
+  // Fallback if no exact Tahini is found
+  if (!tahiniProduct && products && products.length > 0) {
+    tahiniProduct = products.find(p => 
+      p.specialLabel !== 'hummus' && 
+      !p.name?.toLowerCase().includes('hummus') && 
+      !p.name?.toLowerCase().includes('humous')
+    );
+  }
+
+  useEffect(() => {
+    console.log("CrossSellModal Status:", {
+      isOpen,
+      tahiniProductFound: !!tahiniProduct,
+      tahiniProductName: tahiniProduct?.name,
+      totalProducts: products?.length
+    });
+  }, [isOpen, tahiniProduct, products]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -37,7 +59,7 @@ export default function CrossSellModal({ isOpen, onClose, onProceed }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"

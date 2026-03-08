@@ -59,7 +59,7 @@
     "coming_soon": "Coming Soon"
   },
   "footer": {
-    "about": "Crafting premium flavors with the finest natural ingredients. Experience the taste of excellence in every bottle.",
+    "about": "The Hero Levant Line brings fresh oriental cuisine to your kitchen.\n\nWith our premium bases, you can prepare hummus and other classics\nyourself in just one minute.\n\nFresh.\nNatural.\nSimple.",
     "quick_links": "Quick Links",
     "legal": "Legal",
     "newsletter": "Newsletter",
@@ -167,14 +167,11 @@
   "product_detail": {
     "back": "Back to overview",
     "per_packet": "Per Packet",
-    "vitamin_c": "Vitamin C",
-    "antioxidants": "Antioxidants",
-    "fruit_extract": "Fruit Extract",
     "select_option": "Select Purchase Option",
     "pack_size": "Pack Size",
     "single_packet": "Single Packet",
     "tray_packet": "Case (12 Packets)",
-    "unit_size": "0.5L Unit",
+    "unit_size": "Pack size",
     "save_bulk": "Save 15% on bulk",
     "quantity": "Quantity",
     "max_units": "Max 99 units",
@@ -184,16 +181,18 @@
     "coming_soon": "Coming Soon",
     "shipping_info": "Free shipping on orders over €30 | Delivery time 2 - 3 business days",
     "ingredients": "Ingredients",
-    "tea_drink_desc": "Tea drink made from black tea extract with {name} flavor",
-    "nutrition_title": "Nutritional values per 100ml",
+    "product_desc_prefix": "Base for {name}",
+    "nutrition_title": "Nutritional values per 100g",
     "nutrition_info": "Nutritional information",
-    "calories": "Calories (kcal)",
+    "energy_kcal": "Energy (kcal)",
+    "energy_kj": "Energy (kJ)",
     "fat": "Fat",
-    "carbohydrates": "carbohydrates",
-    "sugar": "Sugar",
-    "protein": "protein",
+    "saturated_fat": "of which saturated fat",
+    "carbohydrates": "Carbohydrates",
+    "sugar": "of which sugar",
+    "protein": "Protein",
     "salt": "Salt",
-    "tea_extract": "Tea extract"
+    "fiber": "Fiber"
   },
   "admin": {
     "sidebar": {
@@ -249,8 +248,31 @@
         "status_label": "Status",
         "order_date": "Order Date",
         "verified": "Order ID Verified",
+        "update_status": "Update Status",
         "invoice": "Invoice Number",
         "manage_status": "Manage Status & Tracking"
+      }
+    },
+    "subscribers": {
+      "title": "Newsletter Subscribers",
+      "subtitle": "Manage your newsletter audience",
+      "search": "Search emails...",
+      "refresh": "Refresh List",
+      "loading": "Loading audience...",
+      "error_load": "Failed to load subscribers. Please try again.",
+      "try_again": "Try again",
+      "no_results": "No results found",
+      "no_results_desc": "No subscribers matching your search.",
+      "empty": "No subscribers yet",
+      "empty_desc": "When customers sign up for the newsletter in the footer, they will appear here.",
+      "table": {
+        "email": "Email",
+        "date": "Date Subscribed",
+        "status": "Status"
+      },
+      "status": {
+        "active": "Active",
+        "unsubscribed": "Unsubscribed"
       }
     },
     "products": {

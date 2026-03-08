@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,46 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const Footer = () => {
   const { t } = useLanguage();
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle, loading, success, error
+  const [message, setMessage] = useState("");
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    try {
+      setStatus("loading");
+      setMessage("");
+      
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to subscribe");
+      }
+
+      setStatus("success");
+      setMessage(data.message);
+      setEmail(""); // clear input on success
+
+      // Reset success state after a few seconds
+      setTimeout(() => {
+        setStatus("idle");
+        setMessage("");
+      }, 5000);
+
+    } catch (error) {
+       console.error("Newsletter error:", error);
+       setStatus("error");
+       setMessage(error.message || "An error occurred. Please try again.");
+    }
+  };
 
   return (
     <footer className="relative mt-20 border-t border-white/10 bg-black/20 backdrop-blur-xl pt-16 pb-8 overflow-hidden">
@@ -30,7 +71,7 @@ const Footer = () => {
               {t("footer.about")}
             </p>
             <div className="flex gap-4">
-              {[Instagram, Facebook, Twitter, Mail].map((Icon, idx) => (
+              {[Instagram, Facebook, Mail].map((Icon, idx) => (
                 <a 
                   key={idx} 
                   href="#" 
@@ -87,16 +128,37 @@ const Footer = () => {
             <p className="text-white/60 text-sm leading-relaxed">
               {t("footer.newsletter_desc")}
             </p>
-            <div className="relative group">
+            <form onSubmit={handleNewsletterSubmit} className="relative group">
               <input 
                 type="email" 
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === "loading" || status === "success"}
                 placeholder={t("footer.email_placeholder")}
-                className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#d3b673]/50 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 pr-24 text-white placeholder:text-white/30 focus:outline-none focus:border-[#d3b673]/50 transition-all disabled:opacity-50"
               />
-              <button className="absolute right-1.5 top-1.5 bg-[#d3b673] hover:bg-[#c4a55d] text-black text-xs font-bold py-2 px-4 rounded-full transition-all active:scale-95">
-                {t("footer.join")}
+              <button 
+                type="submit"
+                disabled={status === "loading" || status === "success"}
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-[#d3b673] hover:bg-[#c4a55d] text-black text-xs font-bold px-4 rounded-full transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[80px]"
+              >
+                {status === "loading" ? (
+                   <span className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin"></span>
+                ) : status === "success" ? (
+                   "✓"
+                ) : (
+                   t("footer.join")
+                )}
               </button>
-            </div>
+            </form>
+            
+            {/* Newsletter Messaging */}
+            {message && (
+               <p className={`text-xs font-medium px-2 ${status === 'error' ? 'text-red-400' : 'text-emerald-400'}`}>
+                  {message}
+               </p>
+            )}
           </div>
         </div>
 
