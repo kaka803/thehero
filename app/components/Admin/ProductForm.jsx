@@ -177,7 +177,7 @@ export default function ProductForm({ product, onClose, onSuccess }) {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Tax Rate (%)</label>
+                  <label className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("admin.products.form.tax_rate")}</label>
                   <input 
                     name="taxRate" type="number" value={formData.taxRate} onChange={handleChange} required
                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:outline-none focus:border-[#d3b673]" 
@@ -185,19 +185,19 @@ export default function ProductForm({ product, onClose, onSuccess }) {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Sort Order</label>
+                    <label className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("admin.products.form.sort_order")}</label>
                     <input 
                         name="sortOrder" type="number" value={formData.sortOrder} onChange={handleChange}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:outline-none focus:border-[#d3b673]" 
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Special Label</label>
+                    <label className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("admin.products.form.special_label")}</label>
                     <select 
                       name="specialLabel" value={formData.specialLabel || ""} onChange={(e) => setFormData(prev => ({...prev, specialLabel: e.target.value || null}))}
                       className="w-full bg-[#1a1914] border border-white/10 rounded-2xl py-3 px-4 text-white focus:outline-none focus:border-[#d3b673]"
                     >
-                      <option value="" className="bg-[#1a1914]">None</option>
+                      <option value="" className="bg-[#1a1914]">{t("admin.products.form.label_none")}</option>
                       <option value="hummus" className="bg-[#1a1914]">Hummus</option>
                       <option value="tahini" className="bg-[#1a1914]">Tahini</option>
                     </select>
@@ -291,15 +291,15 @@ export default function ProductForm({ product, onClose, onSuccess }) {
             <h3 className="text-lg font-bold">{t("admin.products.form.nutrition")}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { label: 'Energy (kcal)', name: 'nutrition.energyKcal' },
-                { label: 'Energy (kJ)', name: 'nutrition.energyKj' },
-                { label: 'Fat', name: 'nutrition.fat' },
-                { label: 'Saturated Fat', name: 'nutrition.saturatedFat' },
-                { label: 'Carbohydrates', name: 'nutrition.carbohydrates' },
-                { label: 'Sugar', name: 'nutrition.sugar' },
-                { label: 'Protein', name: 'nutrition.protein' },
-                { label: 'Salt', name: 'nutrition.salt' },
-                { label: 'Fiber', name: 'nutrition.fiber' },
+                { label: t('product_detail.energy_kcal'), name: 'nutrition.energyKcal' },
+                { label: t('product_detail.energy_kj'), name: 'nutrition.energyKj' },
+                { label: t('product_detail.fat'), name: 'nutrition.fat' },
+                { label: t('product_detail.saturated_fat'), name: 'nutrition.saturatedFat' },
+                { label: t('product_detail.carbohydrates'), name: 'nutrition.carbohydrates' },
+                { label: t('product_detail.sugar'), name: 'nutrition.sugar' },
+                { label: t('product_detail.protein'), name: 'nutrition.protein' },
+                { label: t('product_detail.salt'), name: 'nutrition.salt' },
+                { label: t('product_detail.fiber'), name: 'nutrition.fiber' },
               ].map((field) => (
                 <div key={field.name} className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{field.label}</label>

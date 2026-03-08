@@ -148,7 +148,7 @@ export default function AdminOrdersPage() {
                         order.status === 'pending' ? 'bg-[#d3b673]/10 text-[#d3b673] border border-[#d3b673]/20' :
                         'bg-white/5 text-white/40 border border-white/10'
                       }`}>
-                        {order.status}
+                        {t(`admin.orders.statuses.${order.status}`)}
                       </span>
                     </td>
                     <td className="px-6 py-5 text-center">
@@ -318,15 +318,15 @@ export default function AdminOrdersPage() {
                               onChange={(e) => setTrackingInfo({...trackingInfo, status: e.target.value})}
                               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#d3b673]"
                             >
-                               <option value="pending" className="bg-[#0f0e0a]">Pending</option>
-                               <option value="processing" className="bg-[#0f0e0a]">Processing</option>
-                               <option value="shipped" className="bg-[#0f0e0a]">Shipped</option>
-                               <option value="delivered" className="bg-[#0f0e0a]">Delivered</option>
-                               <option value="cancelled" className="bg-[#0f0e0a]">Cancelled</option>
+                               <option value="pending" className="bg-[#0f0e0a]">{t("admin.orders.statuses.pending")}</option>
+                               <option value="processing" className="bg-[#0f0e0a]">{t("admin.orders.statuses.processing")}</option>
+                               <option value="shipped" className="bg-[#0f0e0a]">{t("admin.orders.statuses.shipped")}</option>
+                               <option value="delivered" className="bg-[#0f0e0a]">{t("admin.orders.statuses.delivered")}</option>
+                               <option value="cancelled" className="bg-[#0f0e0a]">{t("admin.orders.statuses.cancelled")}</option>
                             </select>
                          </div>
                          <div className="space-y-2">
-                            <label className="text-[10px] text-white/40 uppercase font-black">Tracking Number</label>
+                            <label className="text-[10px] text-white/40 uppercase font-black">{t("admin.orders.details.tracking_number")}</label>
                             <input 
                               type="text"
                               value={trackingInfo.trackingNumber}
@@ -341,7 +341,7 @@ export default function AdminOrdersPage() {
                               disabled={statusLoading}
                               className="w-full bg-[#d3b673] text-black font-black uppercase tracking-widest text-xs py-2.5 rounded-xl hover:bg-[#bfa35d] transition-all disabled:opacity-50"
                             >
-                               {statusLoading ? "Updating..." : "Update Status"}
+                               {statusLoading ? t("admin.orders.details.updating") : t("admin.orders.details.update_status")}
                             </button>
                          </div>
                       </div>

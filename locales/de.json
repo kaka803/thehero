@@ -249,8 +249,17 @@
         "order_date": "Bestelldatum",
         "verified": "Bestell-ID verifiziert",
         "update_status": "Status aktualisieren",
+        "updating": "Aktualisieren...",
         "invoice": "Rechnungsnummer",
-        "manage_status": "Status & Tracking verwalten"
+        "manage_status": "Status & Tracking verwalten",
+        "tracking_number": "Sendungsnummer"
+      },
+      "statuses": {
+        "pending": "Ausstehend",
+        "processing": "In Bearbeitung",
+        "shipped": "Versandt",
+        "delivered": "Geliefert",
+        "cancelled": "Storniert"
       }
     },
     "subscribers": {
@@ -312,6 +321,10 @@
         "long_desc": "Ausführliche Beschreibung",
         "ingredients": "Zutaten (kommagetrennt)",
         "nutrition": "Nährwerte (pro 100ml)",
+        "tax_rate": "Steuersatz (%)",
+        "sort_order": "Sortierreihenfolge",
+        "special_label": "Besonderes Label",
+        "label_none": "Keines",
         "save": "Produkt speichern",
         "saving": "Speichern...",
         "cancel": "Abbrechen"

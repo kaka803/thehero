@@ -249,8 +249,17 @@
         "order_date": "Order Date",
         "verified": "Order ID Verified",
         "update_status": "Update Status",
+        "updating": "Updating...",
         "invoice": "Invoice Number",
-        "manage_status": "Manage Status & Tracking"
+        "manage_status": "Manage Status & Tracking",
+        "tracking_number": "Tracking Number"
+      },
+      "statuses": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
       }
     },
     "subscribers": {
@@ -312,6 +321,10 @@
         "long_desc": "Long Description",
         "ingredients": "Ingredients (comma separated)",
         "nutrition": "Nutritional Values (per 100ml)",
+        "tax_rate": "Tax Rate (%)",
+        "sort_order": "Sort Order",
+        "special_label": "Special Label",
+        "label_none": "None",
         "save": "Save Product",
         "saving": "Saving...",
         "cancel": "Cancel"
