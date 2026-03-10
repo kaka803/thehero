@@ -551,5 +551,13 @@
         }
       ]
     }
+  },
+  "cookies_banner": {
+    "title": "Wir schätzen Ihre Privatsphäre",
+    "description": "Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern, personalisierte Anzeigen oder Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Durch Klicken auf „Alle akzeptieren“ stimmen Sie unserer Verwendung von Cookies zu.",
+    "accept_all": "Alle akzeptieren",
+    "decline": "Ablehnen",
+    "settings": "Cookie-Einstellungen",
+    "read_more": "Mehr lesen"
   }
 }

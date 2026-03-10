@@ -24,6 +24,7 @@ import { ProductProvider } from "@/context/ProductContext";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import CartDrawer from "@/app/components/CartDrawer";
+import CookieConsent from "@/app/components/CookieConsent";
 
 export default function RootLayout({ children }) {
   return (
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           <ProductProvider>
             <CartProvider>
               <CartDrawer />
+              <CookieConsent />
               {children}
             </CartProvider>
           </ProductProvider>
