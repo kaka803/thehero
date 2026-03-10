@@ -103,12 +103,13 @@
   },
   "cross_sell": {
     "question": "Do you have {span} at home?",
-    "partner": "Your Humous Hero experience is incomplete without its perfect partner!",
+    "partner": "Your Hummus Hero experience is incomplete without its perfect partner!",
     "yes": "Yes, I have it",
     "no": "No, I need one",
     "match": "Perfect Match",
     "tahini_desc": "Premium sesame paste. Smooth, nutty, and essential for authentic Turkish hummus.",
     "add_and_checkout": "Add to Cart & Checkout",
+    "add_multiple_and_checkout": "Add {count} {name} & Checkout",
     "view_details": "View Details",
     "skip": "Skip to Checkout"
   },

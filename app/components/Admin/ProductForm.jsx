@@ -30,6 +30,7 @@ export default function ProductForm({ product, onClose, onSuccess }) {
       salt: "",
       fiber: "",
     },
+    traySize: 12,
   });
 
   const [loading, setLoading] = useState(false);
@@ -203,17 +204,26 @@ export default function ProductForm({ product, onClose, onSuccess }) {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("admin.products.form.theme_color")}</label>
-                  <div className="flex gap-4">
-                      <input 
-                        type="color" name="color" value={formData.color} onChange={handleChange}
-                        className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl cursor-pointer" 
-                      />
-                      <input 
-                        name="color" value={formData.color} onChange={handleChange}
-                        className="flex-1 bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:outline-none focus:border-[#d3b673] font-mono" 
-                      />
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Tray Size (Packets)</label>
+                    <input 
+                      name="traySize" type="number" value={formData.traySize} onChange={handleChange} required
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:outline-none focus:border-[#d3b673]" 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-white/40 uppercase tracking-widest">{t("admin.products.form.theme_color")}</label>
+                    <div className="flex gap-4">
+                        <input 
+                          type="color" name="color" value={formData.color} onChange={handleChange}
+                          className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl cursor-pointer" 
+                        />
+                        <input 
+                          name="color" value={formData.color} onChange={handleChange}
+                          className="flex-1 bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:outline-none focus:border-[#d3b673] font-mono" 
+                        />
+                    </div>
                   </div>
                 </div>
               </div>

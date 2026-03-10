@@ -103,12 +103,13 @@
   },
   "cross_sell": {
     "question": "Haben Sie {span} zu Hause?",
-    "partner": "Ihr Humous Hero-Erlebnis ist ohne seinen perfekten Partner unvollständig!",
-    "yes": "Ja, ich habe es",
-    "no": "Nein, ich brauche eins",
+    "partner": "Dein Hummus Hero-Erlebnis ist ohne seinen perfekten Partner unvollständig!",
+    "yes": "Ja, habe ich",
+    "no": "Nein, brauche ich",
     "match": "Perfekte Ergänzung",
-    "tahini_desc": "Premium-Sesampaste. Cremig, nussig und unverzichtbar für authentischen türkischen Hummus.",
+    "tahini_desc": "Premium-Sesampaste. Cremig, nussig und unverzichtbar für authentischen Hummus.",
     "add_and_checkout": "In den Warenkorb & Checkout",
+    "add_multiple_and_checkout": "{count} {name} hinzufügen & Checkout",
     "view_details": "Details anzeigen",
     "skip": "Direkt zum Checkout"
   },

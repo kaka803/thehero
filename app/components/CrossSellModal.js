@@ -8,7 +8,7 @@ import { useCart } from "@/context/CartContext";
 import { useProducts } from "@/context/ProductContext";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function CrossSellModal({ isOpen, onClose, onProceed }) {
+export default function CrossSellModal({ isOpen, onClose, onProceed, requiredQuantity = 1 }) {
   const [step, setStep] = useState(1);
   const { products } = useProducts();
   const { addToCart } = useCart();
@@ -35,9 +35,10 @@ export default function CrossSellModal({ isOpen, onClose, onProceed }) {
       isOpen,
       tahiniProductFound: !!tahiniProduct,
       tahiniProductName: tahiniProduct?.name,
-      totalProducts: products?.length
+      totalProducts: products?.length,
+      requiredQuantity
     });
-  }, [isOpen, tahiniProduct, products]);
+  }, [isOpen, tahiniProduct, products, requiredQuantity]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -48,7 +49,7 @@ export default function CrossSellModal({ isOpen, onClose, onProceed }) {
   if (!isOpen || !tahiniProduct) return null;
 
   const handleAddTahini = () => {
-    addToCart(tahiniProduct, 1, "single", false);
+    addToCart(tahiniProduct, requiredQuantity, "single", false);
     onProceed();
     onClose();
   };
@@ -148,7 +149,9 @@ export default function CrossSellModal({ isOpen, onClose, onProceed }) {
                   className="w-full py-4 rounded-2xl bg-[#d3b673] text-black font-bold text-lg hover:bg-[#c4a55d] transition-all active:scale-95 flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(211,182,115,0.3)]"
                 >
                   <Plus size={20} />
-                  {t("cross_sell.add_and_checkout")}
+                  {requiredQuantity > 1 
+                    ? t("cross_sell.add_multiple_and_checkout").replace("{count}", requiredQuantity).replace("{name}", tahiniProduct.name)
+                    : t("cross_sell.add_and_checkout")}
                 </button>
                 
                 <div className="grid grid-cols-2 gap-3">

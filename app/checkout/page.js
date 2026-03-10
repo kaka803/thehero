@@ -98,7 +98,7 @@ export default function CheckoutPage() {
   }, [formData.email, cartTotal]);
 
   const subtotalWithTax = cartTotal + cartItems.reduce((acc, item) => {
-    const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+    const basePrice = item.variant === 'tray' ? (item.price * (item.traySize || 12) * 0.85) : item.price;
     return acc + (basePrice * (item.taxRate / 100) * item.quantity);
   }, 0);
 
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
 
     try {
       const itemsWithTax = cartItems.map(item => {
-        const itemPrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+        const itemPrice = item.variant === 'tray' ? (item.price * (item.traySize || 12) * 0.85) : item.price;
         const taxRate = item.taxRate || 0;
         const taxAmountValue = (itemPrice * (taxRate / 100)) * item.quantity;
         return {
@@ -524,7 +524,7 @@ export default function CheckoutPage() {
                         <h3 className="font-bold text-white text-lg leading-none">{item.name}</h3>
                         <div className="flex justify-between items-center">
                           <p className="text-[10px] text-[#d3b673] font-bold uppercase tracking-wider">
-                            {item.variant === 'tray' ? t("cart.case") : t("cart.single")}
+                            {item.variant === 'tray' ? t("cart.case").replace("12", item.traySize || 12) : t("cart.single")}
                           </p>
                           {item.taxRate > 0 && (
                             <span className="text-[10px] text-white/40 font-bold bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
@@ -537,12 +537,12 @@ export default function CheckoutPage() {
                               <p className="text-white/40 text-xs font-medium">Qty: {item.quantity}</p>
                               {item.taxRate > 0 && (
                                 <p className="text-[9px] text-[#d3b673]/60 font-bold uppercase h-3">
-                                  + Tax: ${((item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price) * (item.taxRate / 100) * item.quantity).toFixed(2)}
+                                  + Tax: ${((item.variant === 'tray' ? (item.price * (item.traySize || 12) * 0.85) : item.price) * (item.taxRate / 100) * item.quantity).toFixed(2)}
                                 </p>
                               )}
                            </div>
                            <p className="font-bold text-white">
-                             ${((item.quantity * (item.variant === 'tray' ? (item.price) * 12 * 0.85 : (item.price))) + ((item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price) * (item.taxRate / 100) * item.quantity)).toFixed(2)}
+                             ${((item.quantity * (item.variant === 'tray' ? (item.price) * (item.traySize || 12) * 0.85 : (item.price))) + ((item.variant === 'tray' ? (item.price * (item.traySize || 12) * 0.85) : item.price) * (item.taxRate / 100) * item.quantity)).toFixed(2)}
                            </p>
                         </div>
                       </div>
@@ -571,7 +571,7 @@ export default function CheckoutPage() {
                     <span>{t("checkout.taxes")}</span>
                     <span className="font-bold">
                       ${cartItems.reduce((acc, item) => {
-                        const basePrice = item.variant === 'tray' ? (item.price * 12 * 0.85) : item.price;
+                        const basePrice = item.variant === 'tray' ? (item.price * (item.traySize || 12) * 0.85) : item.price;
                         return acc + (basePrice * (item.taxRate / 100) * item.quantity);
                       }, 0).toFixed(2)}
                     </span>

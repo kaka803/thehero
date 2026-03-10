@@ -21,24 +21,31 @@ export default function CartDrawer() {
   const drawerRef = useRef(null);
   const overlayRef = useRef(null);
   
-  // Robust hummus/tahini detection
-  const tahiniInCart = cartItems.find(item => {
-    // It's Tahini if it has the label, OR if the name has tahini/sesam AND it's NOT a hummus product
-    if (item.specialLabel === "tahini") return true;
-    
-    const nameStr = item.name?.toLowerCase() || "";
-    const hasTahiniKeywords = nameStr.includes("tahini") || nameStr.includes("tahin") || nameStr.includes("sesam");
-    const isActuallyHummus = item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
-    
-    return hasTahiniKeywords && !isActuallyHummus;
-  });
-  
-  const hasHummusInCart = cartItems.some(item => 
+  // Robust hummus/tahini detection with packet totals
+  const hummusItems = cartItems.filter(item => 
     item.specialLabel === "hummus" || 
     item.name?.toLowerCase().includes("hummus") || 
     item.name?.toLowerCase().includes("humous") ||
     item.name?.toLowerCase().includes("levant")
   );
+
+  const tahiniItems = cartItems.filter(item => {
+    if (item.specialLabel === "tahini") return true;
+    const nameStr = item.name?.toLowerCase() || "";
+    const hasTahiniKeywords = nameStr.includes("tahini") || nameStr.includes("tahin") || nameStr.includes("sesam");
+    const isActuallyHummus = item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
+    return hasTahiniKeywords && !isActuallyHummus;
+  });
+
+  const totalHummusPackets = hummusItems.reduce((acc, item) => 
+    acc + (item.quantity * (item.variant === 'tray' ? (item.traySize || 12) : 1)), 0);
+  
+  const totalTahiniPackets = tahiniItems.reduce((acc, item) => 
+    acc + (item.quantity * (item.variant === 'tray' ? (item.traySize || 12) : 1)), 0);
+
+  const tahiniInCart = tahiniItems.length > 0;
+  const hasHummusInCart = totalHummusPackets > 0;
+  const requiredTahini = Math.max(0, totalHummusPackets - totalTahiniPackets);
 
   useEffect(() => {
     if (!isCartOpen) {
@@ -66,14 +73,15 @@ export default function CartDrawer() {
     }
 
     console.log("Cart Checkout Debug:", {
-      hasHummusInCart,
-      tahiniInCart: !!tahiniInCart,
+      totalHummusPackets,
+      totalTahiniPackets,
+      requiredTahini,
       tahiniProductAvailable: !!tahiniProductAvailable,
       showCrossSell,
       cartItemNames: cartItems.map(i => i.name)
     });
     
-    if (hasHummusInCart && !tahiniInCart && tahiniProductAvailable && !showCrossSell) {
+    if (requiredTahini > 0 && tahiniProductAvailable && !showCrossSell) {
       console.log("Setting showCrossSell to true");
       setShowCrossSell(true);
       return;
@@ -102,6 +110,7 @@ export default function CartDrawer() {
       <CrossSellModal 
         isOpen={showCrossSell} 
         onClose={() => setShowCrossSell(false)} 
+        requiredQuantity={requiredTahini}
         onProceed={() => {
           setShowCrossSell(false);
           setIsCartOpen(false);
@@ -178,7 +187,7 @@ export default function CartDrawer() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-white truncate">{item.name}</h3>
                   <p className="text-[10px] text-[#d3b673] font-bold uppercase tracking-wider mb-2">
-                    {item.variant === 'tray' ? t("cart.case") : t("cart.single")}
+                    {item.variant === 'tray' ? t("cart.case").replace("12", item.traySize || 12) : t("cart.single")}
                   </p>
                   
                   <div className="flex items-center justify-between">
@@ -198,7 +207,7 @@ export default function CartDrawer() {
                       </button>
                     </div>
                     <p className="font-bold text-white">
-                      ${(item.variant === 'tray' ? (item.price) * 12 * 0.85 : (item.price)).toFixed(2)}
+                      ${(item.variant === 'tray' ? (item.price) * (item.traySize || 12) * 0.85 : (item.price)).toFixed(2)}
                     </p>
                   </div>
                 </div>

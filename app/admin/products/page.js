@@ -87,6 +87,7 @@ export default function AdminProductsPage() {
                 <th className="px-8 py-5">{t("admin.products.table.price")}</th>
                 <th className="px-8 py-5">Sort</th>
                 <th className="px-8 py-5">Label</th>
+                <th className="px-8 py-5">Tray</th>
                 <th className="px-8 py-5 text-right">{t("admin.products.table.actions")}</th>
               </tr>
             </thead>
@@ -127,6 +128,9 @@ export default function AdminProductsPage() {
                           {product.specialLabel}
                         </span>
                       )}
+                    </td>
+                    <td className="px-8 py-4">
+                      <span className="text-white/40 text-xs font-bold">{product.traySize || 12}</span>
                     </td>
                     <td className="px-8 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">

@@ -78,16 +78,31 @@ const ProductDetail = ({ product }) => {
   };
 
   const handleBuyNow = () => {
-    const hasTahiniInCart = cartItems.some(item => {
-      // It's Tahini if it has the label, OR if the name has tahini/sesam AND it's NOT a hummus product
+    const hummusItemsInCart = cartItems.filter(item => {
+      const nameStr = item.name?.toLowerCase() || "";
+      return item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
+    });
+
+    const tahiniItemsInCart = cartItems.filter(item => {
       if (item.specialLabel === 'tahini') return true;
-      
       const nameStr = item.name?.toLowerCase() || "";
       const hasTahiniKeywords = nameStr.includes("tahini") || nameStr.includes("tahin") || nameStr.includes("sesam");
       const isActuallyHummus = item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
-      
       return hasTahiniKeywords && !isActuallyHummus;
     });
+
+    let totalHummusPackets = hummusItemsInCart.reduce((acc, item) => 
+      acc + (item.quantity * (item.variant === 'tray' ? (item.traySize || 12) : 1)), 0);
+    
+    let totalTahiniPackets = tahiniItemsInCart.reduce((acc, item) => 
+      acc + (item.quantity * (item.variant === 'tray' ? (item.traySize || 12) : 1)), 0);
+
+    // Add current product if it's hummus
+    if (isHummusProduct) {
+      totalHummusPackets += (quantity * (variant === 'tray' ? (product.traySize || 12) : 1));
+    }
+
+    const requiredTahini = Math.max(0, totalHummusPackets - totalTahiniPackets);
 
     let tahiniProduct = products?.find((p) => 
       p.specialLabel === "tahini" || 
@@ -104,9 +119,9 @@ const ProductDetail = ({ product }) => {
       );
     }
 
-    console.log("Buy Now Debug:", { isHummusProduct, hasTahiniInCart, tahiniProductFound: !!tahiniProduct });
+    console.log("Buy Now Debug:", { isHummusProduct, totalHummusPackets, totalTahiniPackets, requiredTahini, tahiniProductFound: !!tahiniProduct });
 
-    if (isHummusProduct && !hasTahiniInCart && tahiniProduct) {
+    if (requiredTahini > 0 && tahiniProduct) {
       setPendingAction('checkout');
       setShowCrossSell(true);
       return;
@@ -227,7 +242,9 @@ const ProductDetail = ({ product }) => {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <p className="font-bold text-white">{t("product_detail.tray_packet")}</p>
+                        <p className="font-bold text-white">
+                          {t("product_detail.tray_packet").replace("12", product.traySize || 12)}
+                        </p>
                         <p className="text-sm text-white/60">{t("product_detail.save_bulk")}</p>
                       </div>
                       {variant === 'tray' && (
@@ -267,7 +284,7 @@ const ProductDetail = ({ product }) => {
               <div className="flex justify-between items-center py-4 border-t border-white/10 relative z-10">
                 <p className="text-sm text-white/40 uppercase tracking-widest font-bold">{t("product_detail.total_amount")}</p>
                 <p className="text-2xl font-bold text-white">
-                    ${(quantity * (variant === 'tray' ? (product.price) * 12 * 0.85 : (product.price))).toFixed(2)}
+                    ${(quantity * (variant === 'tray' ? (product.price) * (product.traySize || 12) * 0.85 : (product.price))).toFixed(2)}
                 </p>
               </div>
 
@@ -388,6 +405,14 @@ const ProductDetail = ({ product }) => {
           setShowCrossSell(false);
           setPendingAction(null);
         }} 
+        requiredQuantity={Math.max(0, (cartItems.filter(item => {
+          const nameStr = item.name?.toLowerCase() || "";
+          return item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous");
+        }).reduce((acc, item) => acc + (item.quantity * (item.variant === 'tray' ? (item.traySize || 12) : 1)), 0) + (isHummusProduct ? (quantity * (variant === 'tray' ? (product.traySize || 12) : 1)) : 0)) - cartItems.filter(item => {
+          if (item.specialLabel === 'tahini') return true;
+          const nameStr = item.name?.toLowerCase() || "";
+          return (nameStr.includes("tahini") || nameStr.includes("tahin") || nameStr.includes("sesam")) && !(item.specialLabel === "hummus" || nameStr.includes("hummus") || nameStr.includes("humous"));
+        }).reduce((acc, item) => acc + (item.quantity * (item.variant === 'tray' ? (item.traySize || 12) : 1)), 0))}
         onProceed={handleCrossSellProceed}
       />
 

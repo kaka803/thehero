@@ -63,6 +63,10 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0, // Percentage, e.g., 7 or 19
   },
+  traySize: {
+    type: Number,
+    default: 12,
+  },
 }, {
   timestamps: true,
 });
